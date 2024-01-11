@@ -7,27 +7,60 @@
 
 import Foundation
 
+enum EnvVariableMissingError: Error {
+    case runtimeException(String)
+}
+
 class PirateWeather{
     
-    public static let singleton: PirateWeather = PirateWeather()
+    private static var SINGLETON: PirateWeather?
     
-    static let locationDelegate: LocationDelegate = LocationDelegate()
+    static let LOCATION_DELEGATE: LocationDelegate = LocationDelegate()
     
-    let API_BASE_PATH: String?
+    let API_BASE_PATH: String
     
-    private init(){
+    private var jsonDecoder = JSONDecoder()
+    
+    private init() throws {
         if let apiKey = ProcessInfo.processInfo.environment["pirate_weather_api_key"]{
             API_BASE_PATH = "https://api.pirateweather.net/forecast/" + apiKey
         } else {
-            API_BASE_PATH = nil
+            throw EnvVariableMissingError.runtimeException( "API-Key kann nicht gefunden werden")
         }
     }
     
-    func fetchWeatherData () {
-        NSLog("\(String(describing: PirateWeather.locationDelegate.last))")
-        if let currentLocation = PirateWeather.locationDelegate.last && API_BASE_PATH {
-            let url: URL = URL(string: API_BASE_PATH)
+    static func getInstance() throws -> PirateWeather {
+        if PirateWeather.SINGLETON == nil {
+            do {
+                PirateWeather.SINGLETON = try PirateWeather()
+            } catch EnvVariableMissingError.runtimeException(let message) {
+                NSLog("PirateWeather Instanz konnte nicht erzeugt werden: %s", message)
+                throw EnvVariableMissingError.runtimeException(message)
+            }
         }
-        
+        return PirateWeather.SINGLETON!
+    }
+    
+    func fetchWeatherData () -> WeatherData? {
+        if let currentLocation = PirateWeather.LOCATION_DELEGATE.last {
+            let latitude = currentLocation.latitude.formatted()
+            let longitude = currentLocation.longitude.formatted()
+            if let url = URL(string: API_BASE_PATH + latitude + "/" + longitude) {
+                var weatherData: WeatherData?
+                APIClient.fetchData(from: url) { result in
+                    switch result {
+                    case .success(let data):
+                        let weather: WeatherData = try! self.jsonDecoder.decode(WeatherData.self, from: data)
+                        NSLog("%d", weather.apparentTemperature)
+                        weatherData = weather
+                    case .failure(let error):
+                        NSLog("Error during fetch: %s", error.localizedDescription)
+                        weatherData = nil
+                    }
+                }
+                return weatherData
+            }
+        }
+        return nil
     }
 }

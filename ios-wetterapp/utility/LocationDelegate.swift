@@ -16,8 +16,6 @@ class LocationDelegate: NSObject, CLLocationManagerDelegate {
     
     private var _last: CLLocationCoordinate2D?
     
-    private var jsonDecoder = JSONDecoder()
-    
     override init() {
         super.init()
         

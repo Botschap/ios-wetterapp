@@ -17,6 +17,7 @@
 		846666622B4FF13200F01BC2 /* ApiClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 846666612B4FF13200F01BC2 /* ApiClient.swift */; };
 		846666642B4FF2DD00F01BC2 /* LocationDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 846666632B4FF2DD00F01BC2 /* LocationDelegate.swift */; };
 		846666672B5003FC00F01BC2 /* WeatherData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 846666662B5003FC00F01BC2 /* WeatherData.swift */; };
+		846666692B504A4300F01BC2 /* WeatherModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 846666682B504A4300F01BC2 /* WeatherModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -32,6 +33,7 @@
 		846666612B4FF13200F01BC2 /* ApiClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiClient.swift; sourceTree = "<group>"; };
 		846666632B4FF2DD00F01BC2 /* LocationDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationDelegate.swift; sourceTree = "<group>"; };
 		846666662B5003FC00F01BC2 /* WeatherData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherData.swift; sourceTree = "<group>"; };
+		846666682B504A4300F01BC2 /* WeatherModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -91,6 +93,7 @@
 			children = (
 				8466665D2B4FECD900F01BC2 /* PirateWeather.swift */,
 				846666662B5003FC00F01BC2 /* WeatherData.swift */,
+				846666682B504A4300F01BC2 /* WeatherModel.swift */,
 			);
 			path = weather;
 			sourceTree = "<group>";
@@ -172,6 +175,7 @@
 				84279E8A2B4734C9004923E0 /* AppDelegate.swift in Sources */,
 				84279E8C2B4734C9004923E0 /* SceneDelegate.swift in Sources */,
 				8466665E2B4FECD900F01BC2 /* PirateWeather.swift in Sources */,
+				846666692B504A4300F01BC2 /* WeatherModel.swift in Sources */,
 				846666622B4FF13200F01BC2 /* ApiClient.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

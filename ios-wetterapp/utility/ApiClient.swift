@@ -9,7 +9,7 @@ import Foundation
 
 class APIClient {
     
-    func fetchData(from url: URL, completion: @escaping (Result<Data, Error>) -> Void) {
+    static func fetchData(from url: URL, completion: @escaping (Result<Data, Error>) -> Void) {
         URLSession.shared.dataTask(with: url) { (data, response, error) in
             if let error = error {
                 completion(.failure(error))
