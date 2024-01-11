@@ -25,5 +25,9 @@ class PirateWeather{
     
     func fetchWeatherData () {
         NSLog("\(String(describing: PirateWeather.locationDelegate.last))")
+        if let currentLocation = PirateWeather.locationDelegate.last && API_BASE_PATH {
+            let url: URL = URL(string: API_BASE_PATH)
+        }
+        
     }
 }
