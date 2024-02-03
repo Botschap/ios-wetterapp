@@ -8,13 +8,11 @@
 import Foundation
 import CoreLocation
 
-class LocationDelegate: NSObject, CLLocationManagerDelegate {
+class LocationManager: NSObject, CLLocationManagerDelegate {
     
     private var locationManager = CLLocationManager()
     
-    private(set) var last: CLLocationCoordinate2D? 
-    
-    private var _last: CLLocationCoordinate2D?
+    weak var delegate: LocationManagerDelegate?
     
     override init() {
         super.init()
@@ -24,7 +22,7 @@ class LocationDelegate: NSObject, CLLocationManagerDelegate {
     
     private func setupLocationManager() {
         locationManager.delegate = self
-        locationManager.desiredAccuracy = kCLLocationAccuracyKilometer
+        locationManager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters
         locationManager.requestWhenInUseAuthorization()
         locationManager.startUpdatingLocation()
     }
@@ -38,4 +36,9 @@ class LocationDelegate: NSObject, CLLocationManagerDelegate {
         NSLog("Location update failed with error: \(error.localizedDescription)")
     }
     
+}
+
+protocol LocationManagerDelegate: AnyObject {
+    func didUpdateLocation(_ location: CLLocation)
+    func didFailWithError(_ error: Error)
 }

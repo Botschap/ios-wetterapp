@@ -15,7 +15,7 @@ class PirateWeather{
     
     private static var SINGLETON: PirateWeather?
     
-    static let LOCATION_DELEGATE: LocationDelegate = LocationDelegate()
+    static let LOCATION_DELEGATE: LocationManager = LocationManager()
     
     let API_BASE_PATH: String
     
@@ -42,7 +42,7 @@ class PirateWeather{
     }
     
     func fetchWeatherData () -> WeatherData? {
-        if let currentLocation = PirateWeather.LOCATION_DELEGATE.last {
+        /*if let currentLocation = PirateWeather.LOCATION_DELEGATE.last {
             let latitude = currentLocation.latitude.formatted()
             let longitude = currentLocation.longitude.formatted()
             if let url = URL(string: API_BASE_PATH + latitude + "/" + longitude) {
@@ -60,7 +60,7 @@ class PirateWeather{
                 }
                 return weatherData
             }
-        }
+        }*/
         return nil
     }
 }
