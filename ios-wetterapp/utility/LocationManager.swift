@@ -13,6 +13,7 @@ class LocationManager: NSObject, CLLocationManagerDelegate {
     private var locationManager = CLLocationManager()
     
     weak var delegate: LocationManagerDelegate?
+    private(set) var lastLocation: CLLocation?
     
     override init() {
         super.init()
@@ -22,18 +23,35 @@ class LocationManager: NSObject, CLLocationManagerDelegate {
     
     private func setupLocationManager() {
         locationManager.delegate = self
-        locationManager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters
+        locationManager.desiredAccuracy = kCLLocationAccuracyKilometer
         locationManager.requestWhenInUseAuthorization()
-        locationManager.startUpdatingLocation()
     }
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        guard let location = locations.last else { return }
-        NSLog("New location: \(location.coordinate.latitude), \(location.coordinate.longitude)")
+        guard let lastLocation = locations.last else { return }
+        NSLog("New location: \(lastLocation.coordinate.latitude), \(lastLocation.coordinate.longitude)")
     }
     
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
         NSLog("Location update failed with error: \(error.localizedDescription)")
+    }
+    
+    func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
+        switch manager.authorizationStatus {
+        case .authorizedWhenInUse, .authorizedAlways:
+            // Location services authorized, you can start location updates here if needed.
+            locationManager.startUpdatingLocation()
+            NSLog("Location authorization status changed to authorized")
+        case .denied, .restricted:
+            // Location services denied or restricted, handle accordingly.
+            NSLog("Location authorization status changed to denied or restricted")
+        case .notDetermined:
+            // Authorization status not determined yet.
+            NSLog("Location authorization status not determined")
+        @unknown default:
+            NSLog("Error during authorization check")
+            break
+        }
     }
     
 }

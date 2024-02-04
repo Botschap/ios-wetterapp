@@ -33,10 +33,11 @@ class ViewController: UIViewController, LocationManagerDelegate {
         let weather = try! PirateWeather.getInstance()
         locationManager = LocationManager()
         locationManager.delegate = self
-        while(true) {
+        NSLog("setup complete")
+        /*while(true) {
             weather.fetchWeatherData()
             Thread.sleep(forTimeInterval: 5.0)
-        }
+        }*/
     }
 
 
