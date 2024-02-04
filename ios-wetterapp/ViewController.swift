@@ -14,9 +14,9 @@ class ViewController: UIViewController {
     private var weather: PirateWeather = try! PirateWeather.getInstance()
     
     
-   
     
-
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
@@ -27,11 +27,13 @@ class ViewController: UIViewController {
     func waitForNewLocation() {
         DispatchQueue.main.async {
             self.locationManager.waitForLocationChange{newLocation in
-                self.weather.fetchWeatherData(newLocation)
+                self.weather.fetchWeatherData(newLocation, { data in
+                    NSLog("fetched Weatherdata")
+                })
             }
         }
     }
-
-
+    
+    
 }
 

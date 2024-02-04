@@ -20,12 +20,27 @@ class PirateWeather{
     
     private var jsonDecoder = JSONDecoder()
     
+    private let numberFormatter: NumberFormatter
+    
+    private (set) var fetchedData: WeatherData? {
+        didSet {
+            completionHandler?(self.fetchedData)
+        }
+    }
+    
+    private var completionHandler: ((WeatherData?) -> Void)?
+    
+    
+    
     private init() throws {
         if let apiKey = ProcessInfo.processInfo.environment["pirate_weather_api_key"]{
-            API_BASE_PATH = "https://api.pirateweather.net/forecast/" + apiKey
+            self.API_BASE_PATH = "https://api.pirateweather.net/forecast/" + apiKey
         } else {
             throw EnvVariableMissingError.runtimeException( "API-Key kann nicht gefunden werden")
         }
+        self.numberFormatter = NumberFormatter()
+        self.numberFormatter.minimumFractionDigits = 2
+        self.numberFormatter.maximumFractionDigits = 2
     }
     
     static func getInstance() throws -> PirateWeather {
@@ -40,26 +55,22 @@ class PirateWeather{
         return PirateWeather.SINGLETON!
     }
     
-    func fetchWeatherData (_ location: CLLocation?) -> WeatherData? {
+    func fetchWeatherData (_ location: CLLocation?, _ completion: @escaping (WeatherData?) -> Void) -> Void {
+        self.completionHandler = completion
         if let currentLocation = location?.coordinate {
-            let latitude = currentLocation.latitude.formatted()
-            let longitude = currentLocation.longitude.formatted()
-            if let url = URL(string: API_BASE_PATH + latitude + "/" + longitude) {
-                var weatherData: WeatherData?
+            let latitude = currentLocation.latitude
+            let longitude = currentLocation.longitude
+            if let url = URL(string: "\(API_BASE_PATH)/\(latitude),\(longitude)") {
                 APIClient.fetchData(from: url) { result in
                     switch result {
                     case .success(let data):
                         let weather: WeatherData = try! self.jsonDecoder.decode(WeatherData.self, from: data)
                         NSLog("%d", weather.apparentTemperature)
-                        weatherData = weather
                     case .failure(let error):
                         NSLog("Error during fetch: %s", error.localizedDescription)
-                        weatherData = nil
                     }
                 }
-                return weatherData
             }
         }
-        return nil
     }
 }
