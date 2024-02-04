@@ -8,36 +8,28 @@
 import UIKit
 import CoreLocation
 
-class ViewController: UIViewController, LocationManagerDelegate {
+class ViewController: UIViewController {
     
-    private var locationManager: LocationManager!
+    private var locationManager: LocationManager = LocationManager()
+    private var weather: PirateWeather = try! PirateWeather.getInstance()
     
     
-    
-    func didUpdateLocation(_ location: CLLocation) {
-            // Update the label with the current location
-            let latitude = location.coordinate.latitude
-            let longitude = location.coordinate.longitude
-            NSLog("Latitude: \(latitude), Longitude: \(longitude)")
-        }
-
-        func didFailWithError(_ error: Error) {
-            // Handle location error
-            NSLog("Error getting location: \(error.localizedDescription)")
-        }
+   
     
 
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
-        let weather = try! PirateWeather.getInstance()
-        locationManager = LocationManager()
-        locationManager.delegate = self
         NSLog("setup complete")
-        /*while(true) {
-            weather.fetchWeatherData()
-            Thread.sleep(forTimeInterval: 5.0)
-        }*/
+        waitForNewLocation()
+    }
+    
+    func waitForNewLocation() {
+        DispatchQueue.main.async {
+            self.locationManager.waitForLocationChange{newLocation in
+                self.weather.fetchWeatherData(newLocation)
+            }
+        }
     }
 
 

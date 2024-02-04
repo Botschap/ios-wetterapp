@@ -12,24 +12,32 @@ class LocationManager: NSObject, CLLocationManagerDelegate {
     
     private var locationManager = CLLocationManager()
     
-    weak var delegate: LocationManagerDelegate?
-    private(set) var lastLocation: CLLocation?
+    var delegate: CLLocationManagerDelegate?
+    
+    private (set) var last: CLLocation? {
+        didSet {
+            completionHandler?(last)
+        }
+    }
+    
+    private var completionHandler: ((CLLocation?) -> Void)?
     
     override init() {
         super.init()
         
-        setupLocationManager()
-    }
-    
-    private func setupLocationManager() {
         locationManager.delegate = self
         locationManager.desiredAccuracy = kCLLocationAccuracyKilometer
         locationManager.requestWhenInUseAuthorization()
     }
     
+    func waitForLocationChange (_ completion: @escaping (CLLocation?) -> Void){
+        self.completionHandler = completion
+    }
+    
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         guard let lastLocation = locations.last else { return }
         NSLog("New location: \(lastLocation.coordinate.latitude), \(lastLocation.coordinate.longitude)")
+        last = locations.last
     }
     
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
@@ -56,7 +64,3 @@ class LocationManager: NSObject, CLLocationManagerDelegate {
     
 }
 
-protocol LocationManagerDelegate: AnyObject {
-    func didUpdateLocation(_ location: CLLocation)
-    func didFailWithError(_ error: Error)
-}

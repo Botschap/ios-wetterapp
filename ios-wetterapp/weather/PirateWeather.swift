@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import CoreLocation
 
 enum EnvVariableMissingError: Error {
     case runtimeException(String)
@@ -14,8 +15,6 @@ enum EnvVariableMissingError: Error {
 class PirateWeather{
     
     private static var SINGLETON: PirateWeather?
-    
-    static let LOCATION_DELEGATE: LocationManager = LocationManager()
     
     let API_BASE_PATH: String
     
@@ -41,8 +40,8 @@ class PirateWeather{
         return PirateWeather.SINGLETON!
     }
     
-    func fetchWeatherData () -> WeatherData? {
-        /*if let currentLocation = PirateWeather.LOCATION_DELEGATE.last {
+    func fetchWeatherData (_ location: CLLocation?) -> WeatherData? {
+        if let currentLocation = location?.coordinate {
             let latitude = currentLocation.latitude.formatted()
             let longitude = currentLocation.longitude.formatted()
             if let url = URL(string: API_BASE_PATH + latitude + "/" + longitude) {
@@ -60,7 +59,7 @@ class PirateWeather{
                 }
                 return weatherData
             }
-        }*/
+        }
         return nil
     }
 }
