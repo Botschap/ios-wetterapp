@@ -72,7 +72,7 @@ class PirateWeather{
                 switch result {
                 case .success(let data):
                     let weather: WeatherData = try! self.jsonDecoder.decode(WeatherData.self, from: data)
-                    NSLog("Aktuelle Temperatur: \(weather.currently.temperature)")
+                    completion(weather)
                 case .failure(let error):
                     NSLog("Error during fetch: %s", error.localizedDescription)
                 }

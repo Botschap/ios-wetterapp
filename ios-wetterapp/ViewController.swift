@@ -12,7 +12,7 @@ class ViewController: UIViewController {
     
     private var locationManager: LocationManager = LocationManager()
     private var weather: PirateWeather = try! PirateWeather.getInstance()
-    
+    private let weatherModel: WeatherModel = WeatherModel()
     
     
     
@@ -26,9 +26,10 @@ class ViewController: UIViewController {
     
     func waitForNewLocation() {
         DispatchQueue.main.async {
-            self.locationManager.waitForLocationChange{newLocation in
-                self.weather.fetchWeatherData(newLocation, { data in
-                    NSLog("fetched Weatherdata")
+            self.locationManager.waitForLocationChange{newLocation in«
+                self.weather.fetchWeatherData(newLocation, { newData in
+                    self.weatherModel.data = newData
+                    NSLog("Neues Wettermodel: \(String(describing: self.weatherModel.data))")
                 })
             }
         }
