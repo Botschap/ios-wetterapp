@@ -55,20 +55,26 @@ class PirateWeather{
         return PirateWeather.SINGLETON!
     }
     
-    func fetchWeatherData (_ location: CLLocation?, _ completion: @escaping (WeatherData?) -> Void) -> Void {
-        self.completionHandler = completion
+    fileprivate func createURL(_ location: CLLocation?) -> URL? {
         if let currentLocation = location?.coordinate {
             let latitude = currentLocation.latitude
             let longitude = currentLocation.longitude
-            if let url = URL(string: "\(API_BASE_PATH)/\(latitude),\(longitude)") {
-                APIClient.fetchData(from: url) { result in
-                    switch result {
-                    case .success(let data):
-                        let weather: WeatherData = try! self.jsonDecoder.decode(WeatherData.self, from: data)
-                        NSLog("%d", weather.apparentTemperature)
-                    case .failure(let error):
-                        NSLog("Error during fetch: %s", error.localizedDescription)
-                    }
+            return URL(string: "\(API_BASE_PATH)/\(latitude),\(longitude)?units=ca")
+        }
+        return nil
+    }
+    
+    func fetchWeatherData (_ location: CLLocation?, _ completion: @escaping (WeatherData?) -> Void) -> Void {
+        self.completionHandler = completion
+        
+        if let url = createURL(location) {
+            APIClient.fetchData(from: url) { result in
+                switch result {
+                case .success(let data):
+                    let weather: WeatherData = try! self.jsonDecoder.decode(WeatherData.self, from: data)
+                    NSLog("Aktuelle Temperatur: \(weather.currently.temperature)")
+                case .failure(let error):
+                    NSLog("Error during fetch: %s", error.localizedDescription)
                 }
             }
         }
