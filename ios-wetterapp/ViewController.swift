@@ -26,7 +26,7 @@ class ViewController: UIViewController {
     
     func waitForNewLocation() {
         DispatchQueue.main.async {
-            self.locationManager.waitForLocationChange{newLocation in«
+            self.locationManager.waitForLocationChange{newLocation in
                 self.weather.fetchWeatherData(newLocation, { newData in
                     self.weatherModel.data = newData
                     NSLog("Neues Wettermodel: \(String(describing: self.weatherModel.data))")

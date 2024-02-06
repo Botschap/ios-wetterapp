@@ -22,13 +22,13 @@ class PirateWeather{
     
     private let numberFormatter: NumberFormatter
     
-    private (set) var fetchedData: WeatherData? {
+    private (set) var fetchedData: WeatherResponse? {
         didSet {
             completionHandler?(self.fetchedData)
         }
     }
     
-    private var completionHandler: ((WeatherData?) -> Void)?
+    private var completionHandler: ((WeatherResponse?) -> Void)?
     
     
     
@@ -64,14 +64,14 @@ class PirateWeather{
         return nil
     }
     
-    func fetchWeatherData (_ location: CLLocation?, _ completion: @escaping (WeatherData?) -> Void) -> Void {
+    func fetchWeatherData (_ location: CLLocation?, _ completion: @escaping (WeatherResponse?) -> Void) -> Void {
         self.completionHandler = completion
         
         if let url = createURL(location) {
             APIClient.fetchData(from: url) { result in
                 switch result {
                 case .success(let data):
-                    let weather: WeatherData = try! self.jsonDecoder.decode(WeatherData.self, from: data)
+                    let weather: WeatherResponse = try! self.jsonDecoder.decode(WeatherResponse.self, from: data)
                     completion(weather)
                 case .failure(let error):
                     NSLog("Error during fetch: %s", error.localizedDescription)

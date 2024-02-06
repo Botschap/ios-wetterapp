@@ -9,7 +9,7 @@ import Foundation
 
 class WeatherModel {
     
-    var data: WeatherData? {
+    var data: WeatherResponse? {
         get {
             return _data
         }
@@ -18,6 +18,6 @@ class WeatherModel {
         }
     }
     
-    private var _data: WeatherData?
+    private var _data: WeatherResponse?
     
 }
