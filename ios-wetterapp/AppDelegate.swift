@@ -6,14 +6,17 @@
 //
 
 import UIKit
+import BackgroundTasks
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
-
-
+    
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
+        if #available(iOS 13, *) {
+            registerBackgroundTask()
+        }
         return true
     }
 
@@ -31,6 +34,27 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Use this method to release any resources that were specific to the discarded scenes, as they will not return.
     }
 
+    
+    func applicationDidEnterBackground(_ application: UIApplication) {
+        NSLog("App did enter background")
+        if #available(iOS 13, *) {
+            //self.scheduleFetchBackgroundTask()
+        }
+    }
+    
+    @available(iOS 13.0, *)
+    func registerBackgroundTask(){
+        NSLog("Backgroundtask registrieren")
+        BGTaskScheduler.shared.register(forTaskWithIdentifier: "com.foo.ios-wetterapp.scheduel.FetchWeather", using: nil, launchHandler: {task in
+            NSLog("Startet Backgorund Task")
+            // fetchData
+            
+            task.setTaskCompleted(success: true)
+            //self.scheduleFetchBackgroundTask()
+        })
+    }
+    
+    
 
 }
 

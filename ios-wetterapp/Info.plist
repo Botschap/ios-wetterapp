@@ -1,44 +1,48 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
-    <dict>
-        <key>NSLocationWhenInUseUsageDescription</key>
-        <string>We need your location for...</string>
-        <key>NSLocationAlwaysUsageDescription</key>
-        <string>We need your location for...</string>
-        <key>UIApplicationSceneManifest</key>
-        <dict>
-            <key>UIApplicationSupportsTabbedSceneCollection</key>
-            <false/>
-            <key>UIApplicationSupportsMultipleScenes</key>
-            <false/>
-            <key>UISceneConfigurations</key>
-            <dict>
-                <key>UIWindowSceneSessionRoleExternalDisplayNonInteractive</key>
-                <array>
-                    <dict>
-                        <key>UISceneClassName</key>
-                        <string></string>
-                        <key>UISceneDelegateClassName</key>
-                        <string></string>
-                        <key>UISceneConfigurationName</key>
-                        <string></string>
-                        <key>UISceneStoryboardFile</key>
-                        <string></string>
-                    </dict>
-                </array>
-                <key>UIWindowSceneSessionRoleApplication</key>
-                <array>
-                    <dict>
-                        <key>UISceneConfigurationName</key>
-                        <string>Default Configuration</string>
-                        <key>UISceneDelegateClassName</key>
-                        <string>$(PRODUCT_MODULE_NAME).SceneDelegate</string>
-                        <key>UISceneStoryboardFile</key>
-                        <string>Main</string>
-                    </dict>
-                </array>
-            </dict>
-        </dict>
-    </dict>
+<dict>
+	<key>BGTaskSchedulerPermittedIdentifiers</key>
+	<array>
+		<string>com.foo.ios-wetterapp.scheduel.FetchWeather</string>
+	</array>
+	<key>UIApplicationSceneManifest</key>
+	<dict>
+		<key>UIApplicationSupportsMultipleScenes</key>
+		<false/>
+		<key>UIApplicationSupportsTabbedSceneCollection</key>
+		<false/>
+		<key>UISceneConfigurations</key>
+		<dict>
+			<key>UIWindowSceneSessionRoleApplication</key>
+			<array>
+				<dict>
+					<key>UISceneConfigurationName</key>
+					<string>Default Configuration</string>
+					<key>UISceneDelegateClassName</key>
+					<string>$(PRODUCT_MODULE_NAME).SceneDelegate</string>
+					<key>UISceneStoryboardFile</key>
+					<string>Main</string>
+				</dict>
+			</array>
+			<key>UIWindowSceneSessionRoleExternalDisplayNonInteractive</key>
+			<array>
+				<dict>
+					<key>UISceneClassName</key>
+					<string></string>
+					<key>UISceneConfigurationName</key>
+					<string></string>
+					<key>UISceneDelegateClassName</key>
+					<string></string>
+					<key>UISceneStoryboardFile</key>
+					<string></string>
+				</dict>
+			</array>
+		</dict>
+	</dict>
+	<key>UIBackgroundModes</key>
+	<array>
+		<string>processing</string>
+	</array>
+</dict>
 </plist>

@@ -93,8 +93,8 @@
 		846666652B5003EC00F01BC2 /* weather */ = {
 			isa = PBXGroup;
 			children = (
-				8466665D2B4FECD900F01BC2 /* PirateWeather.swift */,
 				846666662B5003FC00F01BC2 /* WeatherData.swift */,
+				8466665D2B4FECD900F01BC2 /* PirateWeather.swift */,
 				846666682B504A4300F01BC2 /* WeatherModel.swift */,
 			);
 			path = weather;
@@ -334,6 +334,8 @@
 				DEVELOPMENT_TEAM = RY2BTYZ6QL;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "ios-wetterapp/Info.plist";
+				INFOPLIST_KEY_NSLocationAlwaysUsageDescription = "We need your location for...";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "We need your location for...";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
@@ -364,6 +366,8 @@
 				DEVELOPMENT_TEAM = RY2BTYZ6QL;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "ios-wetterapp/Info.plist";
+				INFOPLIST_KEY_NSLocationAlwaysUsageDescription = "We need your location for...";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "We need your location for...";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;

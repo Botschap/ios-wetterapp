@@ -1,4 +1,8 @@
-#  <#Title#>
+#  Wetterapp
 
 - [ ] scheduel zum fetchen der Wetterdaten (unabhängig von der Location)
-- [ ] UI
+- [ ] Benachrichtigungen an den User, wenn es in 1h regnen sollte
+
+## UI
+
+- [ ] Wetter anzeigen

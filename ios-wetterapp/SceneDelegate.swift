@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import BackgroundTasks
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
@@ -45,8 +46,31 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // Called as the scene transitions from the foreground to the background.
         // Use this method to save data, release shared resources, and store enough scene-specific state information
         // to restore the scene back to its current state.
+        NSLog("scene Backgorund")
+        if #available(iOS 13, *) {
+            scheduleFetchBackgroundTask()
+        }
     }
 
+    @available(iOS 13.0, *)
+    func scheduleFetchBackgroundTask() {
+        let backgroundTaskIdentifier = "com.foo.ios-wetterapp.scheduel.FetchWeather"
+        
+        // Create a request for the background task
+        let request = BGAppRefreshTaskRequest(identifier: backgroundTaskIdentifier)
+        //request.requiresNetworkConnectivity = true // Set to true if network connectivity is required
+        //request.requiresExternalPower = false // Set to true if external power is required
+        
+        // Set the interval for how often the task should be performed (in seconds)
+        request.earliestBeginDate = Date(timeIntervalSinceNow: 5) // 1 hour
+        
+        do {
+            // Schedule the background task
+            try BGTaskScheduler.shared.submit(request)
+        } catch {
+            print("Error scheduling background task: \(error)")
+        }
+    }
 
 }
 

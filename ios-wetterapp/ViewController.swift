@@ -15,6 +15,7 @@ class ViewController: UIViewController {
     private let weatherModel: WeatherModel = WeatherModel()
     
     
+    @IBOutlet weak var locationLabel: UILabel!
     
     
     override func viewDidLoad() {
