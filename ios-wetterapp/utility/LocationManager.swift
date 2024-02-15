@@ -20,9 +20,11 @@ class LocationManager: NSObject, CLLocationManagerDelegate {
         }
     }
     
+    private static var SINGLETON: LocationManager?
+    
     private var completionHandler: ((CLLocation?) -> Void)?
     
-    override init() {
+    private override init() {
         super.init()
         
         locationManager.delegate = self
@@ -34,6 +36,13 @@ class LocationManager: NSObject, CLLocationManagerDelegate {
     
     func waitForLocationChange (_ completion: @escaping (CLLocation?) -> Void){
         self.completionHandler = completion
+    }
+    
+    static func getInstance() -> LocationManager {
+        if LocationManager.SINGLETON == nil {
+            LocationManager.SINGLETON = LocationManager()
+        }
+        return LocationManager.SINGLETON!
     }
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {

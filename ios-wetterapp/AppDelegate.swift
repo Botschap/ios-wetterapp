@@ -60,7 +60,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         //request.requiresExternalPower = false // Set to true if external power is required
         
         // Set the interval for how often the task should be performed (in seconds)
-        request.earliestBeginDate = Date(timeIntervalSinceNow: 5) // 5 seconds
+        request.earliestBeginDate = Date(timeIntervalSinceNow: 60) // 1 min seconds
         
         do {
             // Schedule the background task
@@ -77,9 +77,20 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             task.setTaskCompleted(success: false)
         }
         
-        NSLog("Task completed successfully.")
-        task.setTaskCompleted(success: true)
-        scheduleRefreshBackgroundTask()
+        NSLog("completing task")
+        
+        if let location = LocationManager.getInstance().last {
+            let pirateWeater = try! PirateWeather.getInstance()
+            pirateWeater.fetchWeatherData(location) { weatherData in
+                NSLog("Neues Wettermodel im backgroundtask: \(String(describing: weatherData))")
+                NSLog("Task completed successfully.")
+                task.setTaskCompleted(success: true)
+                self.scheduleRefreshBackgroundTask()
+            }
+        }
+    
+        
+        
         
     }
     

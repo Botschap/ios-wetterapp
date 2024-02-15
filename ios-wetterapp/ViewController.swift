@@ -10,7 +10,7 @@ import CoreLocation
 
 class ViewController: UIViewController {
     
-    private var locationManager: LocationManager = LocationManager()
+    private var locationManager: LocationManager = LocationManager.getInstance()
     private var weather: PirateWeather = try! PirateWeather.getInstance()
     private let weatherModel: WeatherModel = WeatherModel()
     
