@@ -4,7 +4,7 @@
     <dict>
         <key>BGTaskSchedulerPermittedIdentifiers</key>
         <array>
-            <string>com.foo.ios-wetterapp.scheduel.FetchWeather</string>
+            <string>ios-wetterapp.fetchWeather</string>
         </array>
         <key>UIApplicationSceneManifest</key>
         <dict>

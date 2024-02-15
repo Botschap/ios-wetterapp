@@ -44,17 +44,42 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     @available(iOS 13.0, *)
     func registerBackgroundTask(){
-        NSLog("Backgroundtask registrieren")
-        BGTaskScheduler.shared.register(forTaskWithIdentifier: "com.foo.ios-wetterapp.scheduel.FetchWeather", using: nil, launchHandler: {task in
-            NSLog("Startet Backgorund Task")
-            // fetchData
-            
-            task.setTaskCompleted(success: true)
-            //self.scheduleFetchBackgroundTask()
+        BGTaskScheduler.shared.register(forTaskWithIdentifier: "ios-wetterapp.fetchWeather", using: nil, launchHandler: {task in
+            self.handleRefreshTask(task as! BGAppRefreshTask)
         })
+        NSLog("Backgroundtask registriert!")
     }
     
+    @available(iOS 13.0, *)
+    func scheduleRefreshBackgroundTask() {
+        let backgroundTaskIdentifier = "ios-wetterapp.fetchWeather"
+        
+        // Create a request for the background task
+        let request = BGAppRefreshTaskRequest(identifier: backgroundTaskIdentifier)
+        //request.requiresNetworkConnectivity = true // Set to true if network connectivity is required
+        //request.requiresExternalPower = false // Set to true if external power is required
+        
+        // Set the interval for how often the task should be performed (in seconds)
+        request.earliestBeginDate = Date(timeIntervalSinceNow: 5) // 5 seconds
     
+        do {
+            NSLog("schedule background task")
+            // Schedule the background task
+            try BGTaskScheduler.shared.submit(request)
+        } catch {
+            print("Error scheduling background task: \(error)")
+        }
+    }
+    
+    func handleRefreshTask(_ task: BGAppRefreshTask) {
+        task.expirationHandler = {
+            NSLog("The Task expired!")
+            task.setTaskCompleted(success: false)
+        }
+        NSLog("task ran successfully")
+        task.setTaskCompleted(success: true)
+        scheduleRefreshBackgroundTask()
+    }
 
 }
 
