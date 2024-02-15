@@ -44,7 +44,6 @@
         <array>
             <string>fetch</string>
             <string>location</string>
-            <string>processing</string>
         </array>
         <key>NSLocationWhenInUseUsageDescription</key>
         <string>This app need your location to provide weatherdata</string>
