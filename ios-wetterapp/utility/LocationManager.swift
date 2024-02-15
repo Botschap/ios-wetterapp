@@ -29,7 +29,7 @@ class LocationManager: NSObject, CLLocationManagerDelegate {
         locationManager.desiredAccuracy = kCLLocationAccuracyKilometer
         locationManager.distanceFilter = 1000
         locationManager.allowsBackgroundLocationUpdates = false
-        locationManager.requestWhenInUseAuthorization()
+        locationManager.requestAlwaysAuthorization()
     }
     
     func waitForLocationChange (_ completion: @escaping (CLLocation?) -> Void){
@@ -48,7 +48,10 @@ class LocationManager: NSObject, CLLocationManagerDelegate {
     
     func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
         switch manager.authorizationStatus {
-        case .authorizedWhenInUse, .authorizedAlways:
+        case .authorizedWhenInUse:
+            locationManager.startUpdatingLocation()
+            NSLog("Location authorization status changed to authorized but not all features will be working correctly")
+        case .authorizedAlways:
             // Location services authorized, you can start location updates here if needed.
             locationManager.startUpdatingLocation()
             NSLog("Location authorization status changed to authorized")
