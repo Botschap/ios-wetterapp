@@ -10,11 +10,13 @@
 
 # TODOS
 
-- [ ] scheduel zum fetchen der Wetterdaten (unabhängig von der Location)
-- [ ] Benachrichtigungen an den User, wenn es in 1h regnen sollte
+- [x] scheduel zum fetchen der Wetterdaten (unabhängig von der Location)
+- [ ] Benachrichtigungen an den User, wenn es z.B. in 1h regnen sollte
+- [ ] neue Wetterapi anbinden (OpenWeatherMap)[https://home.openweathermap.org/api_keys]
 
 ## UI
 
 - [ ] Wetter anzeigen
+
 
 

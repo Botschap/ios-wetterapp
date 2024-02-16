@@ -1,20 +1,20 @@
 //
-//  PirateWeather.swift
+//  OpenWeather.swift
 //  ios-wetterapp
 //
-//  Created by admin on 11.01.24.
+//  Created by admin on 16.02.24.
 //
 
 import Foundation
 import CoreLocation
 
-/*enum EnvVariableMissingError: Error {
+enum EnvVariableMissingError: Error {
     case runtimeException(String)
-}*/
-/*
-class PirateWeather{
+}
+
+class OpenWeather{
     
-    private static var SINGLETON: PirateWeather?
+    private static var SINGLETON: OpenWeather?
     
     let API_BASE_PATH: String
     
@@ -22,56 +22,55 @@ class PirateWeather{
     
     private let numberFormatter: NumberFormatter
     
-    private (set) var fetchedData: WeatherResponse? {
+    private (set) var fetchedData: ApiResponse? {
         didSet {
             completionHandler?(self.fetchedData)
         }
     }
     
-    private var completionHandler: ((WeatherResponse?) -> Void)?
+    private var completionHandler: ((ApiResponse?) -> Void)?
     
     
     
     private init() throws {
-        if let apiKey = ProcessInfo.processInfo.environment["pirate_weather_api_key"]{
-            self.API_BASE_PATH = "https://api.pirateweather.net/forecast/" + apiKey
-        } else {
+        guard let apiKey = ProcessInfo.processInfo.environment["openweather_api_key"] else {
             throw EnvVariableMissingError.runtimeException( "API-Key kann nicht gefunden werden")
         }
+        self.API_BASE_PATH = "https://api.openweathermap.org/data/2.5/forecast?units=metric&appid=\(apiKey)"
         self.numberFormatter = NumberFormatter()
         self.numberFormatter.minimumFractionDigits = 2
         self.numberFormatter.maximumFractionDigits = 2
     }
     
-    static func getInstance() throws -> PirateWeather {
-        if PirateWeather.SINGLETON == nil {
+    static func getInstance() throws -> OpenWeather {
+        if OpenWeather.SINGLETON == nil {
             do {
-                PirateWeather.SINGLETON = try PirateWeather()
+                OpenWeather.SINGLETON = try OpenWeather()
             } catch EnvVariableMissingError.runtimeException(let message) {
                 NSLog("PirateWeather Instanz konnte nicht erzeugt werden: %s", message)
                 throw EnvVariableMissingError.runtimeException(message)
             }
         }
-        return PirateWeather.SINGLETON!
+        return OpenWeather.SINGLETON!
     }
     
     fileprivate func createURL(_ location: CLLocation?) -> URL? {
         if let currentLocation = location?.coordinate {
             let latitude = currentLocation.latitude
             let longitude = currentLocation.longitude
-            return URL(string: "\(API_BASE_PATH)/\(latitude),\(longitude)?units=ca")
+            return URL(string: "\(API_BASE_PATH)&lat=\(latitude)&lon=\(longitude)?units=ca")
         }
         return nil
     }
     
-    func fetchWeatherData (_ location: CLLocation?, _ completion: @escaping (WeatherResponse?) -> Void) -> Void {
+    func fetchWeatherData (_ location: CLLocation?, _ completion: @escaping (ApiResponse?) -> Void) -> Void {
         self.completionHandler = completion
         
         if let url = createURL(location) {
             APIClient.fetchData(from: url) { result in
                 switch result {
                 case .success(let data):
-                    let weather: WeatherResponse = try! self.jsonDecoder.decode(WeatherResponse.self, from: data)
+                    let weather: ApiResponse = try! self.jsonDecoder.decode(ApiResponse.self, from: data)
                     completion(weather)
                 case .failure(let error):
                     NSLog("Error during fetch: %s", error.localizedDescription)
@@ -80,4 +79,3 @@ class PirateWeather{
         }
     }
 }
-*/
