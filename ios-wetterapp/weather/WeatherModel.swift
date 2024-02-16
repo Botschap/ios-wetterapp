@@ -9,15 +9,6 @@ import Foundation
 
 class WeatherModel {
     
-    var data: WeatherResponse? {
-        get {
-            return _data
-        }
-        set {
-          _data = newValue
-        }
-    }
-    
-    private var _data: WeatherResponse?
+    var data: ApiResponse? 
     
 }

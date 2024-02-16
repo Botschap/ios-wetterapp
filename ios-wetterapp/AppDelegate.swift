@@ -80,7 +80,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         NSLog("completing task")
         
         if let location = LocationManager.getInstance().last {
-            let pirateWeater = try! PirateWeather.getInstance()
+            let pirateWeater = try! OpenWeather.getInstance()
             pirateWeater.fetchWeatherData(location) { weatherData in
                 NSLog("Neues Wettermodel im backgroundtask: \(String(describing: weatherData))")
                 NSLog("Task completed successfully.")

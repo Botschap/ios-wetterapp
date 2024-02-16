@@ -58,7 +58,7 @@ class OpenWeather{
         if let currentLocation = location?.coordinate {
             let latitude = currentLocation.latitude
             let longitude = currentLocation.longitude
-            return URL(string: "\(API_BASE_PATH)&lat=\(latitude)&lon=\(longitude)?units=ca")
+            return URL(string: "\(API_BASE_PATH)&lat=\(latitude)&lon=\(longitude)")
         }
         return nil
     }
