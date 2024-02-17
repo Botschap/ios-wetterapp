@@ -21,8 +21,10 @@ class HeaderView : UIView {
         demoText.font = UIFont.boldSystemFont(ofSize: 25)
         addSubview(demoText)
         addSubview(demoicon)
+        //needs to be set to disable autoresizing for standard componentes
         disableAutoresizingMaskConstraints()
         computeLayout()
+        
     }
     
     func computeLayout() {

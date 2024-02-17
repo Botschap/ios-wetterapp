@@ -21,6 +21,7 @@
 		84CC46752B80CC1D00FA4BC8 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84CC46742B80CC1D00FA4BC8 /* Extensions.swift */; };
 		84CC46792B80D8D300FA4BC8 /* HeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84CC46782B80D8D300FA4BC8 /* HeaderView.swift */; };
 		84CC467B2B80EC1500FA4BC8 /* TemperaturView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84CC467A2B80EC1500FA4BC8 /* TemperaturView.swift */; };
+		84CC467D2B81149800FA4BC8 /* TempMinMaxView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84CC467C2B81149800FA4BC8 /* TempMinMaxView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -41,6 +42,7 @@
 		84CC46742B80CC1D00FA4BC8 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		84CC46782B80D8D300FA4BC8 /* HeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderView.swift; sourceTree = "<group>"; };
 		84CC467A2B80EC1500FA4BC8 /* TemperaturView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TemperaturView.swift; sourceTree = "<group>"; };
+		84CC467C2B81149800FA4BC8 /* TempMinMaxView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TempMinMaxView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -113,6 +115,7 @@
 				84CC46742B80CC1D00FA4BC8 /* Extensions.swift */,
 				84CC46782B80D8D300FA4BC8 /* HeaderView.swift */,
 				84CC467A2B80EC1500FA4BC8 /* TemperaturView.swift */,
+				84CC467C2B81149800FA4BC8 /* TempMinMaxView.swift */,
 			);
 			path = views;
 			sourceTree = "<group>";
@@ -190,6 +193,7 @@
 			files = (
 				84CC467B2B80EC1500FA4BC8 /* TemperaturView.swift in Sources */,
 				84279E8E2B4734C9004923E0 /* ViewController.swift in Sources */,
+				84CC467D2B81149800FA4BC8 /* TempMinMaxView.swift in Sources */,
 				84CC46752B80CC1D00FA4BC8 /* Extensions.swift in Sources */,
 				846666642B4FF2DD00F01BC2 /* LocationManager.swift in Sources */,
 				84CC46792B80D8D300FA4BC8 /* HeaderView.swift in Sources */,

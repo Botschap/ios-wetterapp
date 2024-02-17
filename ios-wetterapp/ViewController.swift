@@ -51,7 +51,7 @@ class ViewController: UIViewController {
         ]
         
         let metrics: [String : Int] = [
-            "s": 50
+            "s": 30
         ]
         
         let constraintsAsStrings: [String] = [

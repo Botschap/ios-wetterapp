@@ -11,24 +11,19 @@ import UIKit
 class TemperaturView : UIView {
     
     let temperatureLabel: UILabel = UILabel()
-    let tempMinLabel: UILabel = UILabel()
-    let tempMaxLabel: UILabel = UILabel()
+    let minMaxView: TempMinMaxView = TempMinMaxView()
     
     override func layoutSubviews() {
         super.layoutSubviews()
         
         temperatureLabel.font = UIFont.boldSystemFont(ofSize: 25)
         temperatureLabel.text = "12 °C"
-        tempMaxLabel.font = UIFont.systemFont(ofSize: 18)
-        tempMaxLabel.text = "16 °C"
-        tempMinLabel.font = UIFont.systemFont(ofSize: 18)
-        tempMinLabel.text = "10 °C"
         temperatureLabel.backgroundColor = UIColor.white
         
         addSubview(temperatureLabel)
-        addSubview(tempMinLabel)
-        addSubview(tempMaxLabel)
+        addSubview(minMaxView)
         
+        //needs to be set to disable autoresizing for standard componentes
         disableAutoresizingMaskConstraints()
         computeLayout()
     }
@@ -37,22 +32,22 @@ class TemperaturView : UIView {
         
         let views: [String:Any] = [
             "temp": temperatureLabel,
-            "min": tempMinLabel,
-            "max": tempMaxLabel
+            "minMax": minMaxView
         ]
         let metrics: [String:Int] = [
-            "s": 20
+            "s": 20,
+            "m": 60
         ]
         let constraintsAsStrings: [String] = [
-           "H:|-s-[min]-s-[max]-s-|",
-           "V:|-[temp]-[min]-|",
-           "V:|-[temp]-[max]-|"
+            "H:[temp]",
+            "H:|-m-[minMax]-m-|",
+            "V:|-[temp]-[minMax]-|",
         ]
         
-        addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|-[temp]-|", options: [.alignAllCenterX], metrics: metrics, views: views))
-        
         addConstraints(NSLayoutConstraint.constraints(withVisualFormats: constraintsAsStrings, metrics: metrics, views: views))
-        
+        // Center the view both horizontally and vertically
+        temperatureLabel.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
+       // minMaxView.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
     }
     
 }
