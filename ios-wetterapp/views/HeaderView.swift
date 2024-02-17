@@ -8,7 +8,7 @@
 import Foundation
 import UIKit
 
-class DemoView : UIView {
+class HeaderView : UIView {
     
     let demoText: UILabel = UILabel()
     let demoicon: UIImageView = UIImageView(image: UIImage(systemName: "sun.max.fill"))
