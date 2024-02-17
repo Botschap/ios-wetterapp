@@ -14,14 +14,16 @@ class ViewController: UIViewController {
     private var weather: OpenWeather = try! OpenWeather.getInstance()
     private let weatherModel: WeatherModel = WeatherModel()
     
-    private var headerView: HeaderView = HeaderView()
+    private let headerView: HeaderView = HeaderView()
+    private let tempView: TemperaturView = TemperaturView()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         
-        headerView.backgroundColor = UIColor.red
+        view.backgroundColor = UIColor.red
         view.addSubview(headerView)
+        view.addSubview(tempView)
         
         view?.disableAutoresizingMaskConstraints()
         computeLayout()
@@ -44,7 +46,8 @@ class ViewController: UIViewController {
     
     func computeLayout(){
         let views: [String : Any] = [
-            "header": headerView
+            "header": headerView,
+            "temp": tempView
         ]
         
         let metrics: [String : Int] = [
@@ -53,7 +56,8 @@ class ViewController: UIViewController {
         
         let constraintsAsStrings: [String] = [
             "H:|-s-[header]-s-|",
-            "V:|-s-[header]-s-|"
+            "H:|-s-[temp]-s-|",
+            "V:|-s-[header]-s-[temp]-(>=s)-|"
         ]
         view.addConstraints(NSLayoutConstraint.constraints(withVisualFormats: constraintsAsStrings, metrics: metrics, views: views))
     }
