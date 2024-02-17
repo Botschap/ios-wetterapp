@@ -10,16 +10,16 @@ import UIKit
 
 class HeaderView : UIView {
     
-    let demoText: UILabel = UILabel()
+    let cityName: UILabel = UILabel()
     let demoicon: UIImageView = UIImageView(image: UIImage(systemName: "sun.max.fill"))
+    
     
     override func layoutSubviews() {
         super.layoutSubviews()
         
-        demoText.text = "Köln"
-        demoText.backgroundColor = UIColor.white
-        demoText.font = UIFont.boldSystemFont(ofSize: 25)
-        addSubview(demoText)
+        cityName.backgroundColor = UIColor.white
+        cityName.font = UIFont.boldSystemFont(ofSize: 25)
+        addSubview(cityName)
         addSubview(demoicon)
         //needs to be set to disable autoresizing for standard componentes
         disableAutoresizingMaskConstraints()
@@ -29,20 +29,25 @@ class HeaderView : UIView {
     
     func computeLayout() {
         let views: [String:Any] = [
-            "text": demoText,
+            "city": cityName,
             "icon": demoicon
         ]
         let metrics: [String:Int] = [
             "s": 20,
         ]
         let constraintsAsStrings: [String] = [
-            "H:|-s-[text]-(>=s)-[icon(>=60)]-(s)-|",
+            "H:|-s-[city]-(>=s)-[icon(>=60)]-(s)-|",
             "V:|-s-[icon(>=60)]-(>=s)-|",
-            "V:|-s-[text(==icon)]-(>=s)-|"
+            "V:|-s-[city(==icon)]-(>=s)-|"
         ]
         
         addConstraints(NSLayoutConstraint.constraints(withVisualFormats: constraintsAsStrings, metrics: metrics, views: views))
         
+    }
+    
+    func handleNewWeatherData(_ weather: ApiResponse) {
+        cityName.text = weather.city.name
+        setNeedsDisplay()
     }
     
 }

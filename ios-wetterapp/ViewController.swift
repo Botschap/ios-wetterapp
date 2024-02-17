@@ -14,56 +14,59 @@ class ViewController: UIViewController {
     private var weather: OpenWeather = try! OpenWeather.getInstance()
     private let weatherModel: WeatherModel = WeatherModel()
     
-    private let headerView: HeaderView = HeaderView()
-    private let tempView: TemperaturView = TemperaturView()
+    let weatherView: WeatherView = WeatherView()
+    let loadingView: LoadingView = LoadingView()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
-        
-        view.backgroundColor = UIColor.red
-        view.addSubview(headerView)
-        view.addSubview(tempView)
-        
-        view?.disableAutoresizingMaskConstraints()
-        computeLayout()
-        NSLog("setup complete")
         
         waitForNewLocation()
+        
+        view.addSubview(loadingView)
+        setupConstraints(for: loadingView)
+        
+        NSLog("setup complete")
         
     }
     
     func waitForNewLocation() {
-        DispatchQueue.main.async {
+        DispatchQueue.global().async {
             self.locationManager.waitForLocationChange{newLocation in
                 self.weather.fetchWeatherData(newLocation, { newData in
                     self.weatherModel.data = newData
                     NSLog("new weatherdata!")
+                    DispatchQueue.main.async {
+                        self.refresh()
+                    }
                 })
             }
         }
     }
     
-    func computeLayout(){
-        let views: [String : Any] = [
-            "header": headerView,
-            "temp": tempView
-        ]
+    
+    
+    func refresh() {
+        if let data = weatherModel.data {
+            if loadingView.superview != nil {
+                loadingView.removeFromSuperview()
+                view.addSubview(weatherView)
+                setupConstraints(for: weatherView)
+            }
+            
+            weatherView.handleNewWeatherData(data)
+        }
         
-        let metrics: [String : Int] = [
-            "s": 30
-        ]
-        
-        let constraintsAsStrings: [String] = [
-            "H:|-s-[header]-s-|",
-            "H:|-s-[temp]-s-|",
-            "V:|-s-[header]-s-[temp]-(>=s)-|"
-        ]
-        view.addConstraints(NSLayoutConstraint.constraints(withVisualFormats: constraintsAsStrings, metrics: metrics, views: views))
     }
     
-    
-    
+    func setupConstraints(for view: UIView) {
+            view.translatesAutoresizingMaskIntoConstraints = false
+            NSLayoutConstraint.activate([
+                view.leadingAnchor.constraint(equalTo: self.view.leadingAnchor),
+                view.trailingAnchor.constraint(equalTo: self.view.trailingAnchor),
+                view.topAnchor.constraint(equalTo: self.view.topAnchor),
+                view.bottomAnchor.constraint(equalTo: self.view.bottomAnchor)
+            ])
+        }
     
 }
 
