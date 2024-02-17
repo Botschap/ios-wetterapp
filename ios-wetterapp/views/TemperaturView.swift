@@ -8,7 +8,7 @@
 import Foundation
 import UIKit
 
-class TemperaturView : UIView {
+class TemperaturView : UIView, WeatherDataHandler {
     
     let temperatureLabel: UILabel = UILabel()
     let minMaxView: TempMinMaxView = TempMinMaxView()
@@ -48,6 +48,16 @@ class TemperaturView : UIView {
         // Center the view both horizontally and vertically
         temperatureLabel.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
        // minMaxView.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
+    }
+    
+    func handleNewWeatherData(_ weather: ApiResponse) {
+        func handleNewWeatherData(_ weather: ApiResponse){
+            for subview in subviews {
+                if let handler = subview as? WeatherDataHandler {
+                    handler.handleNewWeatherData(weather)
+                }
+            }
+        }
     }
     
 }

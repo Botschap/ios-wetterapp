@@ -8,7 +8,7 @@
 import Foundation
 import UIKit
 
-class WeatherView: UIView {
+class WeatherView: UIView, WeatherDataHandler {
     
     private let headerView: HeaderView = HeaderView()
     private let tempView: TemperaturView = TemperaturView()
@@ -42,7 +42,11 @@ class WeatherView: UIView {
     }
     
     func handleNewWeatherData(_ weather: ApiResponse){
-        headerView.handleNewWeatherData(weather)
+        for subview in subviews {
+            if let handler = subview as? WeatherDataHandler {
+                handler.handleNewWeatherData(weather)
+            }
+        }
     }
     
 }

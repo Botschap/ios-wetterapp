@@ -10,7 +10,6 @@ import UIKit
 
 class LoadingView: UIView {
     
-    
     let loadingSpinner: UIActivityIndicatorView = UIActivityIndicatorView(style: .large)
     
     override func layoutSubviews() {

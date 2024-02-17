@@ -31,3 +31,7 @@ extension NSLayoutConstraint {
     }
 }
 
+protocol WeatherDataHandler {
+    func handleNewWeatherData(_ weather: ApiResponse)
+}
+

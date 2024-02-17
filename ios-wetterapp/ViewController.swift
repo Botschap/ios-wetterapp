@@ -51,6 +51,7 @@ class ViewController: UIViewController {
                 loadingView.removeFromSuperview()
                 view.addSubview(weatherView)
                 setupConstraints(for: weatherView)
+                view.layoutIfNeeded()
             }
             
             weatherView.handleNewWeatherData(data)
@@ -59,14 +60,14 @@ class ViewController: UIViewController {
     }
     
     func setupConstraints(for view: UIView) {
-            view.translatesAutoresizingMaskIntoConstraints = false
-            NSLayoutConstraint.activate([
-                view.leadingAnchor.constraint(equalTo: self.view.leadingAnchor),
-                view.trailingAnchor.constraint(equalTo: self.view.trailingAnchor),
-                view.topAnchor.constraint(equalTo: self.view.topAnchor),
-                view.bottomAnchor.constraint(equalTo: self.view.bottomAnchor)
-            ])
-        }
+        view.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            view.leadingAnchor.constraint(equalTo: self.view.leadingAnchor),
+            view.trailingAnchor.constraint(equalTo: self.view.trailingAnchor),
+            view.topAnchor.constraint(equalTo: self.view.topAnchor),
+            view.bottomAnchor.constraint(equalTo: self.view.bottomAnchor)
+        ])
+    }
     
 }
 

@@ -8,7 +8,7 @@
 import Foundation
 import UIKit
 
-class HeaderView : UIView {
+class HeaderView : UIView, WeatherDataHandler {
     
     let cityName: UILabel = UILabel()
     let demoicon: UIImageView = UIImageView(image: UIImage(systemName: "sun.max.fill"))
@@ -47,6 +47,13 @@ class HeaderView : UIView {
     
     func handleNewWeatherData(_ weather: ApiResponse) {
         cityName.text = weather.city.name
+        func handleNewWeatherData(_ weather: ApiResponse){
+            for subview in subviews {
+                if let handler = subview as? WeatherDataHandler {
+                    handler.handleNewWeatherData(weather)
+                }
+            }
+        }
         setNeedsDisplay()
     }
     

@@ -8,7 +8,7 @@
 import Foundation
 import UIKit
 
-class TempMinMaxView: UIView {
+class TempMinMaxView: UIView, WeatherDataHandler {
     let tempMinLabel: UILabel = UILabel()
     let tempMaxLabel: UILabel = UILabel()
     
@@ -39,5 +39,15 @@ class TempMinMaxView: UIView {
             "s": 20
         ]
         addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|-[min]-(>=s)-[max]-|", metrics: metrics, views: views))
+    }
+    
+    func handleNewWeatherData(_ weather: ApiResponse) {
+        func handleNewWeatherData(_ weather: ApiResponse){
+            for subview in subviews {
+                if let handler = subview as? WeatherDataHandler {
+                    handler.handleNewWeatherData(weather)
+                }
+            }
+        }
     }
 }
