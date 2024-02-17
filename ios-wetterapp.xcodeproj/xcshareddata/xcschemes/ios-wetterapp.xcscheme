@@ -52,11 +52,6 @@
       </BuildableProductRunnable>
       <EnvironmentVariables>
          <EnvironmentVariable
-            key = "pirate_weather_api_key"
-            value = "MA8hLn5toIJ9WUhhLtjXOLiG0AjETAlT"
-            isEnabled = "YES">
-         </EnvironmentVariable>
-         <EnvironmentVariable
             key = "openweather_api_key"
             value = "a5b7a187e4a9020e48857c2f09b755d3"
             isEnabled = "YES">
