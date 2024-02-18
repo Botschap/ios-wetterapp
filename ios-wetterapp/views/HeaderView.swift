@@ -12,16 +12,16 @@ class HeaderView : UIView, WeatherDataHandler {
     
     let cityName: UILabel = UILabel()
     //to ensure that the icon is always present for the constraints
-    var demoIcon: UIImageView = UIImageView(image: UIImage(systemName: "cloud.sun.fill"))
+    var weatherIcon: UIImageView = UIImageView(image: UIImage(systemName: "sun.max.fill"))
     
     
     override func layoutSubviews() {
         super.layoutSubviews()
         
         cityName.font = UIFont.boldSystemFont(ofSize: 25)
-        demoIcon.tintColor = UIColor.gray
+        weatherIcon.tintColor = UIColor.gray
         addSubview(cityName)
-        addSubview(demoIcon)
+        addSubview(weatherIcon)
         //needs to be set to disable autoresizing for standard componentes
         disableAutoresizingMaskConstraints()
         computeLayout()
@@ -31,7 +31,7 @@ class HeaderView : UIView, WeatherDataHandler {
     func computeLayout() {
         let views: [String:Any] = [
             "city": cityName,
-            "icon": demoIcon
+            "icon": weatherIcon
         ]
         let metrics: [String:Int] = [
             "s": 20,
@@ -50,17 +50,17 @@ class HeaderView : UIView, WeatherDataHandler {
         cityName.text = weather.city.name
         let currentWeather = weather.list[0]
         //to ensure that there only is one icon
-        demoIcon.removeFromSuperview()
+        weatherIcon.removeFromSuperview()
         if currentWeather.rain != nil {
-            demoIcon = UIImageView(image: UIImage(systemName: "cloud.rain.fill"))
+            weatherIcon = UIImageView(image: UIImage(systemName: "cloud.rain.fill"))
         } else if currentWeather.snow != nil {
-            demoIcon = UIImageView(image: UIImage(systemName: "cloud.snow.fill"))
+            weatherIcon = UIImageView(image: UIImage(systemName: "cloud.snow.fill"))
         } else if currentWeather.wind.speed > 7 {
-            demoIcon = UIImageView(image: UIImage(systemName: "wind"))
+            weatherIcon = UIImageView(image: UIImage(systemName: "wind"))
         }else if currentWeather.clouds.all >= 40 {
-            demoIcon = UIImageView(image: UIImage(systemName: "cloud.fill"))
+            weatherIcon = UIImageView(image: UIImage(systemName: "cloud.fill"))
         }else {
-            demoIcon = UIImageView(image: UIImage(systemName: "cloud.sun.fill"))
+            weatherIcon = UIImageView(image: UIImage(systemName: "sun.max.fill"))
         }
         func handleNewWeatherData(_ weather: ApiResponse){
             for subview in subviews {
