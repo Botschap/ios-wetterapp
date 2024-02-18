@@ -31,11 +31,8 @@ class DailyView: UIView, WeatherDataHandler {
             "four": smallDetailViews[4],
             "zero": smallDetailViews[0],
         ]
-        let metrics: [String:Int] = [
-            "s": 10,
-        ]
         let constraintsAsStrings: [String] = [
-            "H:|-[zero]-[one]-[two]-[three]-[four]-|",
+            "H:|-[zero(==one)]-[one(==zero)]-[two(==one)]-[three(==one)]-[four(==one)]-|",
             "V:|-[zero]-|",
             "V:|-[one]-|",
             "V:|-[two]-|",
@@ -43,7 +40,7 @@ class DailyView: UIView, WeatherDataHandler {
             "V:|-[four]-|",
         ]
         
-        addConstraints(NSLayoutConstraint.constraints(withVisualFormats: constraintsAsStrings, metrics: metrics, views: views))
+        addConstraints(NSLayoutConstraint.constraints(withVisualFormats: constraintsAsStrings, metrics: nil, views: views))
     }
     
     

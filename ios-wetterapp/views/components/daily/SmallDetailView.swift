@@ -22,6 +22,7 @@ class SmallDetailView: UIView, WeatherDataDetailHandler {
         temperatureLabel.font = UIFont.systemFont(ofSize: 12)
         timeLabel.textAlignment = NSTextAlignment.center
         temperatureLabel.textAlignment = NSTextAlignment.center
+        backgroundColor = UIColor.red
         addSubview(weatherIcon)
         addSubview(timeLabel)
         addSubview(temperatureLabel)
@@ -39,9 +40,9 @@ class SmallDetailView: UIView, WeatherDataDetailHandler {
             "s": 10,
         ]
         let constraintsAsStrings: [String] = [
-            "V:|-[time]-s-[weather(==40)]-s-[temp]-|",
+            "V:|-[time]-s-[weather(>=40)]-s-[temp]-|",
             "H:|-[time]-|",
-            "H:|-[weather(==40)]-|",
+            "H:|-[weather(>=40)]-|",
             "H:|-[temp]-|",
         ]
         

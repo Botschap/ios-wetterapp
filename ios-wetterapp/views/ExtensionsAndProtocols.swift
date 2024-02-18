@@ -38,3 +38,7 @@ protocol WeatherDataHandler {
 protocol WeatherDataDetailHandler {
     func handleNewWeatherData(_ weather: Forecast)
 }
+
+protocol WeatherDataForecastHandler {
+    func handleNewWeatherData(_ weather: [Forecast])
+}

@@ -13,12 +13,14 @@ class WeatherView: UIView, WeatherDataHandler {
     private let headerView: HeaderView = HeaderView()
     private let tempView: TemperaturView = TemperaturView()
     private let dailyView: DailyView = DailyView()
+    private let forecastView: ForecastView = ForecastView()
     
     override func layoutSubviews() {
 
         addSubview(headerView)
         addSubview(tempView)
         addSubview(dailyView)
+        addSubview(forecastView)
         
         disableAutoresizingMaskConstraints()
         computeLayout()
@@ -28,7 +30,8 @@ class WeatherView: UIView, WeatherDataHandler {
         let views: [String : Any] = [
             "header": headerView,
             "temp": tempView,
-            "daily": dailyView
+            "daily": dailyView,
+            "forecast": forecastView
         ]
         
         let metrics: [String : Int] = [
@@ -39,8 +42,9 @@ class WeatherView: UIView, WeatherDataHandler {
         let constraintsAsStrings: [String] = [
             "H:|-s-[header]-s-|",
             "H:|-s-[temp]-s-|",
-            "H:[daily]",
-            "V:|-m-[header]-s-[temp]-s-[daily]-(>=m)-|"
+            "H:[daily(>=temp)]",
+            "H:|-s-[forecast]-s-|",
+            "V:|-m-[header]-s-[temp]-s-[daily]-s-[forecast]-(>=m)-|"
         ]
         addConstraints(NSLayoutConstraint.constraints(withVisualFormats: constraintsAsStrings, metrics: metrics, views: views))
         dailyView.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
