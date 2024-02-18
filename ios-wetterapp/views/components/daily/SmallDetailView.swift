@@ -8,9 +8,9 @@
 import Foundation
 import UIKit
 
-class SmallDetailView: UIView, WeatherDataHandler {
+class SmallDetailView: UIView, WeatherDataDetailHandler {
     
-    var index: Int = -1
+    var isCurrent: Bool = false
     var weatherIcon: UIImageView = UIImageView(image: UIImage(systemName: "sun.max.fill"))
     let timeLabel: UILabel = UILabel()
     let temperatureLabel: UILabel = UILabel()
@@ -50,51 +50,39 @@ class SmallDetailView: UIView, WeatherDataHandler {
     }
     
     
-    func handleNewWeatherData(_ weather: ApiResponse) {
-        if index > -1 {
-            let currentWeather = weather.list[index]
-            //to ensure that there only is one icon
-            weatherIcon.removeFromSuperview()
-            if currentWeather.rain != nil {
-                weatherIcon = UIImageView(image: UIImage(systemName: "cloud.rain.fill"))
-                weatherIcon.tintColor = UIColor.systemBlue
-            } else if currentWeather.snow != nil {
-                weatherIcon = UIImageView(image: UIImage(systemName: "cloud.snow.fill"))
-                weatherIcon.tintColor = UIColor.systemGray
-            } else if currentWeather.wind.speed > 7 {
-                weatherIcon = UIImageView(image: UIImage(systemName: "wind"))
-                weatherIcon.tintColor = UIColor.systemGray
-            }else if currentWeather.clouds.all >= 40 {
-                weatherIcon = UIImageView(image: UIImage(systemName: "cloud.fill"))
-                weatherIcon.tintColor = UIColor.systemGray
-            }else {
-                weatherIcon = UIImageView(image: UIImage(systemName: "sun.max.fill"))
-                weatherIcon.tintColor = UIColor.systemYellow
-            }
-            temperatureLabel.text = "\(Int(currentWeather.main.temp.rounded()))°"
-            if index == 0 {
-                timeLabel.text = "Jetzt"
-            } else {
-                let dateFormatter = DateFormatter()
-                dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
-                
-                if let date = dateFormatter.date(from: currentWeather.dt_txt) {
-                    let calendar = Calendar.current
-                    let hour = calendar.component(.hour, from: date)
-                    timeLabel.text = "\(hour) Uhr"
-                }else {
-                    timeLabel.text = "NaN"
-                }
-            }
+    func handleNewWeatherData(_ weather: Forecast) {
+        //to ensure that there only is one icon
+        weatherIcon.removeFromSuperview()
+        if weather.rain != nil {
+            weatherIcon = UIImageView(image: UIImage(systemName: "cloud.rain.fill"))
+            weatherIcon.tintColor = UIColor.systemBlue
+        } else if weather.snow != nil {
+            weatherIcon = UIImageView(image: UIImage(systemName: "cloud.snow.fill"))
+            weatherIcon.tintColor = UIColor.systemGray
+        } else if weather.wind.speed > 7 {
+            weatherIcon = UIImageView(image: UIImage(systemName: "wind"))
+            weatherIcon.tintColor = UIColor.systemGray
+        }else if weather.clouds.all >= 40 {
+            weatherIcon = UIImageView(image: UIImage(systemName: "cloud.fill"))
+            weatherIcon.tintColor = UIColor.systemGray
+        }else {
+            weatherIcon = UIImageView(image: UIImage(systemName: "sun.max.fill"))
+            weatherIcon.tintColor = UIColor.systemYellow
+        }
+        temperatureLabel.text = "\(Int(weather.main.temp.rounded()))°"
+        if isCurrent {
+            timeLabel.text = "Jetzt"
         } else {
-            //todo errorhandling
-            NSLog("invalid index for weatherdetail")
-        }
-        for subview in subviews {
-            if let handler = subview as? WeatherDataHandler {
-                handler.handleNewWeatherData(weather)
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
+            
+            if let date = dateFormatter.date(from: weather.dt_txt) {
+                let calendar = Calendar.current
+                let hour = calendar.component(.hour, from: date)
+                timeLabel.text = "\(hour) Uhr"
+            }else {
+                timeLabel.text = "NaN"
             }
         }
-        //setNeedsDisplay()
     }
 }

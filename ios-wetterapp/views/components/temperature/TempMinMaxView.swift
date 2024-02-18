@@ -43,11 +43,6 @@ class TempMinMaxView: UIView, WeatherDataHandler {
     func handleNewWeatherData(_ weather: ApiResponse) {
         tempMinLabel.text = "T: \(Int(weather.list[0].main.temp_min.rounded()))°"
         tempMaxLabel.text = "H: \(Int(weather.list[0].main.temp_max.rounded()))°"
-        for subview in subviews {
-            if let handler = subview as? WeatherDataHandler {
-                handler.handleNewWeatherData(weather)
-            }
-        }
     }
     
 }

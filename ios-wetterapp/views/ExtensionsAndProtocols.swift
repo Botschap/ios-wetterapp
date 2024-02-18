@@ -35,3 +35,6 @@ protocol WeatherDataHandler {
     func handleNewWeatherData(_ weather: ApiResponse)
 }
 
+protocol WeatherDataDetailHandler {
+    func handleNewWeatherData(_ weather: Forecast)
+}

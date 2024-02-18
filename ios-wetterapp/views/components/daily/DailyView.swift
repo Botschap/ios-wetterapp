@@ -15,9 +15,9 @@ class DailyView: UIView, WeatherDataHandler {
     override func layoutSubviews() {
         super.layoutSubviews()
         for view in smallDetailViews {
-            view.index = smallDetailViews.firstIndex(of: view)!
             addSubview(view)
         }
+        smallDetailViews[0].isCurrent = true
         
         disableAutoresizingMaskConstraints()
         computeLayout()
@@ -48,10 +48,11 @@ class DailyView: UIView, WeatherDataHandler {
     
     
     func handleNewWeatherData(_ weather: ApiResponse) {
-        //todo
+        var counter: Int = 0
         for subview in subviews {
-            if let handler = subview as? WeatherDataHandler {
-                handler.handleNewWeatherData(weather)
+            if let handler = subview as? WeatherDataDetailHandler {
+                handler.handleNewWeatherData(weather.list[counter])
+                counter += 1
             }
         }
     }
