@@ -16,7 +16,7 @@
 - [ ] default Location beim start der Anwendung setzen (falls Location nicht erreicht werden kann)
 ## UI
 
-- [ ] Wetter anzeigen
+- [x] Wetter anzeigen
 
 
 
