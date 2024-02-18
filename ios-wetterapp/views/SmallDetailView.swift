@@ -18,9 +18,10 @@ class SmallDetailView: UIView, WeatherDataHandler {
     override func layoutSubviews() {
         super.layoutSubviews()
         
-        timeLabel.font = UIFont.boldSystemFont(ofSize: 16)
-        temperatureLabel.font = UIFont.boldSystemFont(ofSize: 16)
-        
+        timeLabel.font = UIFont.systemFont(ofSize: 12)
+        temperatureLabel.font = UIFont.systemFont(ofSize: 12)
+        timeLabel.textAlignment = NSTextAlignment.center
+        temperatureLabel.textAlignment = NSTextAlignment.center
         addSubview(weatherIcon)
         addSubview(timeLabel)
         addSubview(temperatureLabel)
@@ -37,8 +38,14 @@ class SmallDetailView: UIView, WeatherDataHandler {
         let metrics: [String:Int] = [
             "s": 10,
         ]
+        let constraintsAsStrings: [String] = [
+            "V:|-[time]-s-[weather(==40)]-s-[temp]-|",
+            "H:|-[time]-|",
+            "H:|-[weather(==40)]-|",
+            "H:|-[temp]-|",
+        ]
         
-        addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:|-[time]-s-[weather(>=20)]-s-[temp]-|", metrics: metrics, views: views))
+        addConstraints(NSLayoutConstraint.constraints(withVisualFormats: constraintsAsStrings, metrics: metrics, views: views))
         
     }
     
@@ -50,14 +57,19 @@ class SmallDetailView: UIView, WeatherDataHandler {
             weatherIcon.removeFromSuperview()
             if currentWeather.rain != nil {
                 weatherIcon = UIImageView(image: UIImage(systemName: "cloud.rain.fill"))
+                weatherIcon.tintColor = UIColor.systemBlue
             } else if currentWeather.snow != nil {
                 weatherIcon = UIImageView(image: UIImage(systemName: "cloud.snow.fill"))
+                weatherIcon.tintColor = UIColor.systemGray
             } else if currentWeather.wind.speed > 7 {
                 weatherIcon = UIImageView(image: UIImage(systemName: "wind"))
+                weatherIcon.tintColor = UIColor.systemGray
             }else if currentWeather.clouds.all >= 40 {
                 weatherIcon = UIImageView(image: UIImage(systemName: "cloud.fill"))
+                weatherIcon.tintColor = UIColor.systemGray
             }else {
                 weatherIcon = UIImageView(image: UIImage(systemName: "sun.max.fill"))
+                weatherIcon.tintColor = UIColor.systemYellow
             }
             temperatureLabel.text = "\(Int(currentWeather.main.temp.rounded()))°"
             if index == 0 {
@@ -70,8 +82,9 @@ class SmallDetailView: UIView, WeatherDataHandler {
                     let calendar = Calendar.current
                     let hour = calendar.component(.hour, from: date)
                     timeLabel.text = "\(hour) Uhr"
+                }else {
+                    timeLabel.text = "NaN"
                 }
-                timeLabel.text = "NaN"
             }
         } else {
             //todo errorhandling
@@ -82,6 +95,6 @@ class SmallDetailView: UIView, WeatherDataHandler {
                 handler.handleNewWeatherData(weather)
             }
         }
-        setNeedsDisplay()
+        //setNeedsDisplay()
     }
 }

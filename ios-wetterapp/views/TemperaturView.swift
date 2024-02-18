@@ -38,14 +38,14 @@ class TemperaturView : UIView, WeatherDataHandler {
         ]
         let constraintsAsStrings: [String] = [
             "H:[temp]",
-            "H:|-m-[minMax]-m-|",
+            "H:[minMax]",
             "V:|-[temp]-[minMax]-|",
         ]
         
         addConstraints(NSLayoutConstraint.constraints(withVisualFormats: constraintsAsStrings, metrics: metrics, views: views))
         // Center the view both horizontally and vertically
         temperatureLabel.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
-        // minMaxView.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
+         minMaxView.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
     }
     
     func handleNewWeatherData(_ weather: ApiResponse) {
@@ -55,7 +55,6 @@ class TemperaturView : UIView, WeatherDataHandler {
                 handler.handleNewWeatherData(weather)
             }
         }
-        setNeedsDisplay()
     }
     
 }

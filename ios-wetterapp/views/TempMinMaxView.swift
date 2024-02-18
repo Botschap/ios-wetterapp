@@ -16,9 +16,10 @@ class TempMinMaxView: UIView, WeatherDataHandler {
         super.layoutSubviews()
         
         
-        tempMaxLabel.font = UIFont.systemFont(ofSize: 18)
-        tempMinLabel.font = UIFont.systemFont(ofSize: 18)
-        
+        tempMaxLabel.font = UIFont.systemFont(ofSize: 16)
+        tempMinLabel.font = UIFont.systemFont(ofSize: 16)
+        tempMaxLabel.textAlignment = NSTextAlignment.center
+        tempMinLabel.textAlignment = NSTextAlignment.center
         addSubview(tempMinLabel)
         addSubview(tempMaxLabel)
         
@@ -34,20 +35,19 @@ class TempMinMaxView: UIView, WeatherDataHandler {
             "max": tempMaxLabel
         ]
         let metrics: [String:Int] = [
-            "s": 20
+            "s": 30
         ]
-        addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|-[min]-(>=s)-[max]-|", metrics: metrics, views: views))
+        addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|-[min]-s-[max]-|", metrics: metrics, views: views))
     }
     
     func handleNewWeatherData(_ weather: ApiResponse) {
-        tempMinLabel.text = "\(Int(weather.list[0].main.temp_min.rounded())) °C"
-        tempMaxLabel.text = "\(Int(weather.list[0].main.temp_max.rounded())) °C"
+        tempMinLabel.text = "T: \(Int(weather.list[0].main.temp_min.rounded())) °"
+        tempMaxLabel.text = "H: \(Int(weather.list[0].main.temp_max.rounded())) °"
         for subview in subviews {
             if let handler = subview as? WeatherDataHandler {
                 handler.handleNewWeatherData(weather)
             }
         }
-        setNeedsDisplay()
     }
     
 }

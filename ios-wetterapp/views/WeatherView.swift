@@ -12,11 +12,13 @@ class WeatherView: UIView, WeatherDataHandler {
     
     private let headerView: HeaderView = HeaderView()
     private let tempView: TemperaturView = TemperaturView()
+    private let dailyView: DailyView = DailyView()
     
     override func layoutSubviews() {
 
         addSubview(headerView)
         addSubview(tempView)
+        addSubview(dailyView)
         
         disableAutoresizingMaskConstraints()
         computeLayout()
@@ -25,7 +27,8 @@ class WeatherView: UIView, WeatherDataHandler {
     func computeLayout(){
         let views: [String : Any] = [
             "header": headerView,
-            "temp": tempView
+            "temp": tempView,
+            "daily": dailyView
         ]
         
         let metrics: [String : Int] = [
@@ -36,9 +39,11 @@ class WeatherView: UIView, WeatherDataHandler {
         let constraintsAsStrings: [String] = [
             "H:|-s-[header]-s-|",
             "H:|-s-[temp]-s-|",
-            "V:|-30-[header]-s-[temp]-(>=30)-|"
+            "H:[daily]",
+            "V:|-m-[header]-s-[temp]-s-[daily]-(>=m)-|"
         ]
         addConstraints(NSLayoutConstraint.constraints(withVisualFormats: constraintsAsStrings, metrics: metrics, views: views))
+        dailyView.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
     }
     
     func handleNewWeatherData(_ weather: ApiResponse){

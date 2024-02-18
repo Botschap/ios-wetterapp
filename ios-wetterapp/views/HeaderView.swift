@@ -19,7 +19,6 @@ class HeaderView : UIView, WeatherDataHandler {
         super.layoutSubviews()
         
         cityName.font = UIFont.boldSystemFont(ofSize: 25)
-        weatherIcon.tintColor = UIColor.gray
         addSubview(cityName)
         addSubview(weatherIcon)
         //needs to be set to disable autoresizing for standard componentes
@@ -37,9 +36,9 @@ class HeaderView : UIView, WeatherDataHandler {
             "s": 20,
         ]
         let constraintsAsStrings: [String] = [
-            "H:|-s-[city]-(>=s)-[icon(>=60)]-(s)-|",
-            "V:|-s-[icon(>=60)]-(>=s)-|",
-            "V:|-(>=s)-[city(==icon)]-(>=s)-|"
+            "H:|-[city]-(>=s)-[icon(==60)]-|",
+            "V:|-[icon(==60)]-|",
+            "V:|-[city(==icon)]-|"
         ]
         
         addConstraints(NSLayoutConstraint.constraints(withVisualFormats: constraintsAsStrings, metrics: metrics, views: views))
@@ -53,14 +52,19 @@ class HeaderView : UIView, WeatherDataHandler {
         weatherIcon.removeFromSuperview()
         if currentWeather.rain != nil {
             weatherIcon = UIImageView(image: UIImage(systemName: "cloud.rain.fill"))
+            weatherIcon.tintColor = UIColor.systemBlue
         } else if currentWeather.snow != nil {
             weatherIcon = UIImageView(image: UIImage(systemName: "cloud.snow.fill"))
+            weatherIcon.tintColor = UIColor.systemGray
         } else if currentWeather.wind.speed > 7 {
             weatherIcon = UIImageView(image: UIImage(systemName: "wind"))
+            weatherIcon.tintColor = UIColor.systemGray
         }else if currentWeather.clouds.all >= 40 {
             weatherIcon = UIImageView(image: UIImage(systemName: "cloud.fill"))
+            weatherIcon.tintColor = UIColor.systemGray
         }else {
             weatherIcon = UIImageView(image: UIImage(systemName: "sun.max.fill"))
+            weatherIcon.tintColor = UIColor.systemYellow
         }
         func handleNewWeatherData(_ weather: ApiResponse){
             for subview in subviews {
@@ -69,7 +73,6 @@ class HeaderView : UIView, WeatherDataHandler {
                 }
             }
         }
-        setNeedsDisplay()
     }
     
 }
