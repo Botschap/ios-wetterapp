@@ -46,9 +46,6 @@ class ForecastView: UIView, WeatherDataHandler {
         
         addConstraints(NSLayoutConstraint.constraints(withVisualFormats: constraintsAsStrings, metrics: metrics, views: views))
         
-        /*for forecastDetailView in forecastDetailViews {
-            forecastDetailView.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
-        }*/
     }
     
     func handleNewWeatherData(_ weather: ApiResponse) {

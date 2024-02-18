@@ -36,7 +36,7 @@ class OpenWeather{
         guard let apiKey = ProcessInfo.processInfo.environment["openweather_api_key"] else {
             throw EnvVariableMissingError.runtimeException( "API-Key kann nicht gefunden werden")
         }
-        self.API_BASE_PATH = "https://api.openweathermap.org/data/2.5/forecast?units=metric&appid=\(apiKey)"
+        self.API_BASE_PATH = "https://api.openweathermap.org/data/2.5/forecast?units=metric&lang=de&appid=\(apiKey)"
         self.numberFormatter = NumberFormatter()
         self.numberFormatter.minimumFractionDigits = 2
         self.numberFormatter.maximumFractionDigits = 2
