@@ -14,8 +14,7 @@ class WeatherView: UIView, WeatherDataHandler {
     private let tempView: TemperaturView = TemperaturView()
     
     override func layoutSubviews() {
-        
-        backgroundColor = UIColor.red
+
         addSubview(headerView)
         addSubview(tempView)
         
@@ -30,13 +29,14 @@ class WeatherView: UIView, WeatherDataHandler {
         ]
         
         let metrics: [String : Int] = [
-            "s": 30
+            "s": 20,
+            "m": 30
         ]
         
         let constraintsAsStrings: [String] = [
             "H:|-s-[header]-s-|",
             "H:|-s-[temp]-s-|",
-            "V:|-s-[header]-s-[temp]-(>=s)-|"
+            "V:|-30-[header]-s-[temp]-(>=30)-|"
         ]
         addConstraints(NSLayoutConstraint.constraints(withVisualFormats: constraintsAsStrings, metrics: metrics, views: views))
     }

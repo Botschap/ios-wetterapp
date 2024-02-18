@@ -18,7 +18,6 @@ class HeaderView : UIView, WeatherDataHandler {
     override func layoutSubviews() {
         super.layoutSubviews()
         
-        cityName.backgroundColor = UIColor.white
         cityName.font = UIFont.boldSystemFont(ofSize: 25)
         demoIcon.tintColor = UIColor.gray
         addSubview(cityName)
@@ -40,7 +39,7 @@ class HeaderView : UIView, WeatherDataHandler {
         let constraintsAsStrings: [String] = [
             "H:|-s-[city]-(>=s)-[icon(>=60)]-(s)-|",
             "V:|-s-[icon(>=60)]-(>=s)-|",
-            "V:|-s-[city(==icon)]-(>=s)-|"
+            "V:|-(>=s)-[city(==icon)]-(>=s)-|"
         ]
         
         addConstraints(NSLayoutConstraint.constraints(withVisualFormats: constraintsAsStrings, metrics: metrics, views: views))

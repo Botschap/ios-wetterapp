@@ -17,7 +17,6 @@ class TemperaturView : UIView, WeatherDataHandler {
         super.layoutSubviews()
         
         temperatureLabel.font = UIFont.boldSystemFont(ofSize: 25)
-        temperatureLabel.backgroundColor = UIColor.white
         
         addSubview(temperatureLabel)
         addSubview(minMaxView)
