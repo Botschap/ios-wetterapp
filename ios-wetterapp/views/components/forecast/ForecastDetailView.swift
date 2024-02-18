@@ -45,7 +45,7 @@ class ForecastDetailView: UIView, WeatherDataForecastHandler {
             "s": 30,
         ]
         let constraintsAsStrings: [String] = [
-            "H:|-[day]-s-[icon(>=40)]-s-[desc(==60)]-s-[min(==40)]-s-[max(==40)]-|",
+            "H:|-[day(30)]-[icon(>=40)]-s-[desc(==60)]-s-[min(==40)]-s-[max(==40)]-|",
             "V:|-[day(<=icon)]-|",
             "V:|-[icon(>=40)]-|",
             "V:|-[min(<=icon)]-|",
