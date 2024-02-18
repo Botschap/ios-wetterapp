@@ -22,7 +22,7 @@ class SmallDetailView: UIView, WeatherDataDetailHandler {
         temperatureLabel.font = UIFont.systemFont(ofSize: 12)
         timeLabel.textAlignment = NSTextAlignment.center
         temperatureLabel.textAlignment = NSTextAlignment.center
-        backgroundColor = UIColor.red
+    
         addSubview(weatherIcon)
         addSubview(timeLabel)
         addSubview(temperatureLabel)
