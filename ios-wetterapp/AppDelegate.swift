@@ -53,8 +53,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         // Create a request for the background task
         let request = BGAppRefreshTaskRequest(identifier: backgroundTaskIdentifier)
-        //request.requiresNetworkConnectivity = true // Set to true if network connectivity is required
-        //request.requiresExternalPower = false // Set to true if external power is required
         
         // Set the interval for how often the task should be performed (in seconds)
         request.earliestBeginDate = Date(timeIntervalSinceNow: 60) // 1 min seconds, but would be higher normally
@@ -80,6 +78,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             let pirateWeater = try! OpenWeather.getInstance()
             pirateWeater.fetchWeatherData(location) { weatherData in
                 NSLog("Neues Wettermodel im backgroundtask: \(String(describing: weatherData))")
+                
+                //todo
+                
                 NSLog("Task completed successfully.")
                 task.setTaskCompleted(success: true)
                 self.scheduleRefreshBackgroundTask()

@@ -414,8 +414,9 @@
 				DEVELOPMENT_TEAM = RY2BTYZ6QL;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "ios-wetterapp/Info.plist";
+				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "This app need your location to provide notifications about the weather at your current location";
 				INFOPLIST_KEY_NSLocationAlwaysUsageDescription = "We need your location for...";
-				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "We need your location for...";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "This app need your location to provide weatherdata";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
@@ -446,8 +447,9 @@
 				DEVELOPMENT_TEAM = RY2BTYZ6QL;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "ios-wetterapp/Info.plist";
+				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "This app need your location to provide notifications about the weather at your current location";
 				INFOPLIST_KEY_NSLocationAlwaysUsageDescription = "We need your location for...";
-				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "We need your location for...";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "This app need your location to provide weatherdata";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
