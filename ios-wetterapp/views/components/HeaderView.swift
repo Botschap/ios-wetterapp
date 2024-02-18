@@ -56,7 +56,7 @@ class HeaderView : UIView, WeatherDataHandler {
         } else if currentWeather.snow != nil {
             weatherIcon = UIImageView(image: UIImage(systemName: "cloud.snow.fill"))
             weatherIcon.tintColor = UIColor.systemGray
-        } else if currentWeather.wind.speed > 7 {
+        } else if currentWeather.wind.speed > 15 {
             weatherIcon = UIImageView(image: UIImage(systemName: "wind"))
             weatherIcon.tintColor = UIColor.systemGray
         }else if currentWeather.clouds.all >= 40 {

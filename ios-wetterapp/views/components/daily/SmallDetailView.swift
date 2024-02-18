@@ -60,7 +60,7 @@ class SmallDetailView: UIView, WeatherDataDetailHandler {
         } else if weather.snow != nil {
             weatherIcon = UIImageView(image: UIImage(systemName: "cloud.snow.fill"))
             weatherIcon.tintColor = UIColor.systemGray
-        } else if weather.wind.speed > 7 {
+        } else if weather.wind.speed > 15 {
             weatherIcon = UIImageView(image: UIImage(systemName: "wind"))
             weatherIcon.tintColor = UIColor.systemGray
         }else if weather.clouds.all >= 40 {

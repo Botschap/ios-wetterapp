@@ -13,6 +13,7 @@ class ForecastDetailView: UIView, WeatherDataForecastHandler {
     let dayOfWeekLabel: UILabel = UILabel()
     let tempMinLabel: UILabel = UILabel()
     let tempMaxLabel: UILabel = UILabel()
+    let descLabel: UILabel = UILabel()
     var weatherIcon: UIImageView = UIImageView(image: UIImage(systemName: "sun.max.fill"))
     
     override func layoutSubviews() {
@@ -21,10 +22,12 @@ class ForecastDetailView: UIView, WeatherDataForecastHandler {
         dayOfWeekLabel.font = UIFont.systemFont(ofSize: 14)
         tempMaxLabel.font = UIFont.systemFont(ofSize: 14)
         tempMinLabel.font = UIFont.systemFont(ofSize: 14)
+        descLabel.font = UIFont.systemFont(ofSize: 8)
         addSubview(dayOfWeekLabel)
         addSubview(tempMaxLabel)
         addSubview(tempMinLabel)
         addSubview(weatherIcon)
+        addSubview(descLabel)
         
         disableAutoresizingMaskConstraints()
         computeLayout()
@@ -35,17 +38,19 @@ class ForecastDetailView: UIView, WeatherDataForecastHandler {
             "day": dayOfWeekLabel,
             "min": tempMinLabel,
             "max": tempMaxLabel,
-            "icon": weatherIcon
+            "icon": weatherIcon,
+            "desc": descLabel
         ]
         let metrics: [String:Int] = [
             "s": 30,
         ]
         let constraintsAsStrings: [String] = [
-            "H:|-[day(30)]-s-[icon(<=40)]-(>=s)-[min(==40)]-s-[max(==40)]-|",
+            "H:|-[day]-s-[icon(>=40)]-s-[desc(==60)]-s-[min(==40)]-s-[max(==40)]-|",
             "V:|-[day(<=icon)]-|",
-            "V:|-[icon(<=40)]-|",
+            "V:|-[icon(>=40)]-|",
             "V:|-[min(<=icon)]-|",
             "V:|-[max(<=icon)]-|",
+            "V:|-[desc(<=icon)]-|",
         ]
         
         addConstraints(NSLayoutConstraint.constraints(withVisualFormats: constraintsAsStrings, metrics: metrics, views: views))
@@ -84,7 +89,7 @@ class ForecastDetailView: UIView, WeatherDataForecastHandler {
                 snow = forecast.snow != nil
             }
             if !wind {
-                wind = forecast.wind.speed > 7
+                wind = forecast.wind.speed > 15
             }
             if !cloud {
                 cloud = forecast.clouds.all > 40
@@ -97,18 +102,35 @@ class ForecastDetailView: UIView, WeatherDataForecastHandler {
         if rain {
             weatherIcon = UIImageView(image: UIImage(systemName: "cloud.rain.fill"))
             weatherIcon.tintColor = UIColor.systemBlue
+            for forecast in weather {
+                if forecast.weather[0].description.contains("Regen"){
+                    descLabel.text = forecast.weather[0].description
+                }
+            }
         } else if snow {
             weatherIcon = UIImageView(image: UIImage(systemName: "cloud.snow.fill"))
             weatherIcon.tintColor = UIColor.systemGray
+            for forecast in weather {
+                if forecast.weather[0].description.contains("Schnee"){
+                    descLabel.text = forecast.weather[0].description
+                }
+            }
         } else if wind {
             weatherIcon = UIImageView(image: UIImage(systemName: "wind"))
             weatherIcon.tintColor = UIColor.systemGray
+            for forecast in weather {
+                if forecast.weather[0].description.contains("Wind"){
+                    descLabel.text = forecast.weather[0].description
+                }
+            }
         } else if cloud {
             weatherIcon = UIImageView(image: UIImage(systemName: "cloud.fill"))
             weatherIcon.tintColor = UIColor.systemGray
+            descLabel.text = weather[0].weather[0].description
         } else {
             weatherIcon = UIImageView(image: UIImage(systemName: "sun.max.fill"))
             weatherIcon.tintColor = UIColor.systemYellow
+            descLabel.text = weather[0].weather[0].description
         }
             
         
