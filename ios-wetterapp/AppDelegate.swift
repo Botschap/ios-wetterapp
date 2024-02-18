@@ -36,10 +36,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     
     func applicationDidEnterBackground(_ application: UIApplication) {
-        NSLog("App did enter background")
-        if #available(iOS 13, *) {
-            //self.scheduleFetchBackgroundTask()
-        }
+        
     }
     
     @available(iOS 13.0, *)
@@ -60,7 +57,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         //request.requiresExternalPower = false // Set to true if external power is required
         
         // Set the interval for how often the task should be performed (in seconds)
-        request.earliestBeginDate = Date(timeIntervalSinceNow: 60) // 1 min seconds
+        request.earliestBeginDate = Date(timeIntervalSinceNow: 60) // 1 min seconds, but would be higher normally
         
         do {
             // Schedule the background task

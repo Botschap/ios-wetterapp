@@ -49,7 +49,7 @@ class TemperaturView : UIView, WeatherDataHandler {
     }
     
     func handleNewWeatherData(_ weather: ApiResponse) {
-        temperatureLabel.text = "\(Int(weather.list[0].main.temp.rounded())) °C"
+        temperatureLabel.text = "\(Int(weather.list[0].main.temp.rounded()))°C"
         for subview in subviews {
             if let handler = subview as? WeatherDataHandler {
                 handler.handleNewWeatherData(weather)

@@ -98,6 +98,42 @@
 			path = "ios-wetterapp";
 			sourceTree = "<group>";
 		};
+		843EDACF2B8243C400C4415D /* components */ = {
+			isa = PBXGroup;
+			children = (
+				843EDAD22B82441300C4415D /* forecast */,
+				843EDAD12B82440000C4415D /* daily */,
+				843EDAD02B8243E700C4415D /* temperature */,
+				84CC46782B80D8D300FA4BC8 /* HeaderView.swift */,
+			);
+			path = components;
+			sourceTree = "<group>";
+		};
+		843EDAD02B8243E700C4415D /* temperature */ = {
+			isa = PBXGroup;
+			children = (
+				84CC467C2B81149800FA4BC8 /* TempMinMaxView.swift */,
+				84CC467A2B80EC1500FA4BC8 /* TemperaturView.swift */,
+			);
+			path = temperature;
+			sourceTree = "<group>";
+		};
+		843EDAD12B82440000C4415D /* daily */ = {
+			isa = PBXGroup;
+			children = (
+				843EDACB2B821BFC00C4415D /* DailyView.swift */,
+				843EDACD2B821C8100C4415D /* SmallDetailView.swift */,
+			);
+			path = daily;
+			sourceTree = "<group>";
+		};
+		843EDAD22B82441300C4415D /* forecast */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = forecast;
+			sourceTree = "<group>";
+		};
 		8466665C2B4FECA200F01BC2 /* utility */ = {
 			isa = PBXGroup;
 			children = (
@@ -120,14 +156,10 @@
 		84CC46732B80CA8000FA4BC8 /* views */ = {
 			isa = PBXGroup;
 			children = (
+				843EDACF2B8243C400C4415D /* components */,
 				84CC46742B80CC1D00FA4BC8 /* ExtensionsAndProtocols.swift */,
-				84CC46782B80D8D300FA4BC8 /* HeaderView.swift */,
-				84CC467A2B80EC1500FA4BC8 /* TemperaturView.swift */,
-				84CC467C2B81149800FA4BC8 /* TempMinMaxView.swift */,
 				84CC467E2B8122C200FA4BC8 /* LoadingView.swift */,
 				84CC46802B8122E200FA4BC8 /* WeatherView.swift */,
-				843EDACB2B821BFC00C4415D /* DailyView.swift */,
-				843EDACD2B821C8100C4415D /* SmallDetailView.swift */,
 			);
 			path = views;
 			sourceTree = "<group>";
