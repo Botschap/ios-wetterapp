@@ -17,7 +17,6 @@ class TemperaturView : UIView, WeatherDataHandler {
         super.layoutSubviews()
         
         temperatureLabel.font = UIFont.boldSystemFont(ofSize: 25)
-        temperatureLabel.text = "12 °C"
         temperatureLabel.backgroundColor = UIColor.white
         
         addSubview(temperatureLabel)
@@ -47,17 +46,17 @@ class TemperaturView : UIView, WeatherDataHandler {
         addConstraints(NSLayoutConstraint.constraints(withVisualFormats: constraintsAsStrings, metrics: metrics, views: views))
         // Center the view both horizontally and vertically
         temperatureLabel.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
-       // minMaxView.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
+        // minMaxView.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
     }
     
     func handleNewWeatherData(_ weather: ApiResponse) {
-        func handleNewWeatherData(_ weather: ApiResponse){
-            for subview in subviews {
-                if let handler = subview as? WeatherDataHandler {
-                    handler.handleNewWeatherData(weather)
-                }
+        temperatureLabel.text = "\(Int(weather.list[0].main.temp.rounded())) °C"
+        for subview in subviews {
+            if let handler = subview as? WeatherDataHandler {
+                handler.handleNewWeatherData(weather)
             }
         }
+        setNeedsDisplay()
     }
     
 }

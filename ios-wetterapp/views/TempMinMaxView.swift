@@ -17,9 +17,7 @@ class TempMinMaxView: UIView, WeatherDataHandler {
         
         
         tempMaxLabel.font = UIFont.systemFont(ofSize: 18)
-        tempMaxLabel.text = "16 °C"
         tempMinLabel.font = UIFont.systemFont(ofSize: 18)
-        tempMinLabel.text = "10 °C"
         
         addSubview(tempMinLabel)
         addSubview(tempMaxLabel)
@@ -42,12 +40,14 @@ class TempMinMaxView: UIView, WeatherDataHandler {
     }
     
     func handleNewWeatherData(_ weather: ApiResponse) {
-        func handleNewWeatherData(_ weather: ApiResponse){
-            for subview in subviews {
-                if let handler = subview as? WeatherDataHandler {
-                    handler.handleNewWeatherData(weather)
-                }
+        tempMinLabel.text = "\(Int(weather.list[0].main.temp_min.rounded())) °C"
+        tempMaxLabel.text = "\(Int(weather.list[0].main.temp_max.rounded())) °C"
+        for subview in subviews {
+            if let handler = subview as? WeatherDataHandler {
+                handler.handleNewWeatherData(weather)
             }
         }
+        setNeedsDisplay()
     }
+    
 }

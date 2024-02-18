@@ -47,6 +47,7 @@ class WeatherView: UIView, WeatherDataHandler {
                 handler.handleNewWeatherData(weather)
             }
         }
+        setNeedsDisplay()
     }
     
 }
