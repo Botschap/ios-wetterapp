@@ -7,6 +7,7 @@
 
 import UIKit
 import BackgroundTasks
+import UserNotifications
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -17,10 +18,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         if #available(iOS 13, *) {
             registerBackgroundTask()
         }
+        UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .sound, .badge]) { (granted, error) in
+            if granted {
+                NSLog("Authorization for usernotifications granted!")
+            } else {
+                NSLog("Authorization for usernotifications not granted!")
+            }
+        }
+        
         return true
     }
-    
-    // MARK: UISceneSession Lifecycle
     
     func application(_ application: UIApplication, configurationForConnecting connectingSceneSession: UISceneSession, options: UIScene.ConnectionOptions) -> UISceneConfiguration {
         // Called when a new scene session is being created.
@@ -55,7 +62,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let request = BGAppRefreshTaskRequest(identifier: backgroundTaskIdentifier)
         
         // Set the interval for how often the task should be performed (in seconds)
-        request.earliestBeginDate = Date(timeIntervalSinceNow: 60) // 1 min seconds, but would be higher normally
+        request.earliestBeginDate = Date(timeIntervalSinceNow: 60 * 30) // 30 min seconds, but would be higher normally
         
         do {
             // Schedule the background task
@@ -77,19 +84,41 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         if let location = LocationManager.getInstance().last {
             let pirateWeater = try! OpenWeather.getInstance()
             pirateWeater.fetchWeatherData(location) { weatherData in
-                NSLog("Neues Wettermodel im backgroundtask: \(String(describing: weatherData))")
+                NSLog("new weatherdata in backgroundtask!")
                 
-                //todo
+                if let weather = weatherData?.list[1] {
+                    if weather.rain != nil || weather.snow != nil || weather.wind.speed > 15 || weather.clouds.all >= 40 {
+                        self.sendUserNotification(weather.weather[0].description)
+                    }
+
+                }
                 
-                NSLog("Task completed successfully.")
+                NSLog("task completed successfully!")
                 task.setTaskCompleted(success: true)
                 self.scheduleRefreshBackgroundTask()
             }
         }
+    }
     
-        
-        
-        
+    func sendUserNotification(_ message: String){
+        let content = UNMutableNotificationContent()
+        content.title = "Warnung"
+        content.body = message
+        content.sound = UNNotificationSound.default
+
+        // Create a trigger for the notification
+        let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 5, repeats: false)
+
+        // Create a request for the notification
+        let request = UNNotificationRequest(identifier: "weatherWarning", content: content, trigger: trigger)
+
+        // Add the request to the notification center
+        UNUserNotificationCenter.current().add(request) { (error) in
+            if let error = error {
+                NSLog("Error scheduling notification: \(error.localizedDescription)")
+            }
+        }
+
     }
     
 }
