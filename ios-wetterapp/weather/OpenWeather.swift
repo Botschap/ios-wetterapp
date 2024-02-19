@@ -22,15 +22,7 @@ class OpenWeather{
     
     private let numberFormatter: NumberFormatter
     
-    private (set) var fetchedData: ApiResponse? {
-        didSet {
-            completionHandler?(self.fetchedData)
-        }
-    }
-    
-    private var completionHandler: ((ApiResponse?) -> Void)?
-    
-    
+    private var errorCompletionHandler: (() -> Void)?
     
     private init() throws {
         guard let apiKey = ProcessInfo.processInfo.environment["openweather_api_key"] else {
@@ -54,7 +46,11 @@ class OpenWeather{
         return OpenWeather.SINGLETON!
     }
     
-    fileprivate func createURL(_ location: CLLocation?) -> URL? {
+    func registerErrorCompletionHandler(_ completion: @escaping () -> Void) {
+        errorCompletionHandler = completion
+    }
+    
+    func createURL(_ location: CLLocation?) -> URL? {
         if let currentLocation = location?.coordinate {
             let latitude = currentLocation.latitude
             let longitude = currentLocation.longitude
@@ -64,16 +60,20 @@ class OpenWeather{
     }
     
     func fetchWeatherData (_ location: CLLocation?, _ completion: @escaping (ApiResponse?) -> Void) -> Void {
-        self.completionHandler = completion
         
         if let url = createURL(location) {
-            APIClient.fetchData(from: url) { result in
-                switch result {
-                case .success(let data):
-                    let weather: ApiResponse = try! self.jsonDecoder.decode(ApiResponse.self, from: data)
-                    completion(weather)
-                case .failure(let error):
-                    NSLog("Error during fetch: %s", error.localizedDescription)
+            APIClient.fetchData(from: url) { [self] result in
+                do {
+                    switch result {
+                    case .success(let data):
+                        let weather: ApiResponse = try self.jsonDecoder.decode(ApiResponse.self, from: data)
+                        completion(weather)
+                    case .failure(let error):
+                        NSLog("Error during fetch: %s", error.localizedDescription)
+                        throw error
+                    }
+                } catch {
+                    self.errorCompletionHandler?()
                 }
             }
         }

@@ -30,7 +30,24 @@ class ViewController: UIViewController {
         
     }
     
+    func showErrorView(_ message: String) {
+        for subview in self.view.subviews {
+            subview.removeFromSuperview()
+        }
+        
+        self.errorView.displayError(message)
+        self.view.addSubview(self.errorView)
+        self.setupConstraints(self.errorView)
+    }
+    
     func waitForNewLocation() {
+        
+        weather.registerErrorCompletionHandler {
+            DispatchQueue.main.async {
+                self.showErrorView("Ein Fehler beim Laden der Wetterdaten ist aufgetreten!")
+            }
+        }
+        
         DispatchQueue.global().async {
             self.locationManager.waitForLocationChange{newLocation in
                 self.weather.fetchWeatherData(newLocation, { newData in
@@ -46,14 +63,7 @@ class ViewController: UIViewController {
         DispatchQueue.global().async {
             self.locationManager.waitForErrorOccured {
                 DispatchQueue.main.async {
-                    //show ErrorView
-                    for subview in self.view.subviews {
-                        subview.removeFromSuperview()
-                    }
-                    
-                    self.errorView.displayError("Kein Zugriff auf Standortdaten!")
-                    self.view.addSubview(self.errorView)
-                    self.setupConstraints(self.errorView)
+                    self.showErrorView("Kein Zugriff auf Standortdaten!")
                 }
             }
         }
@@ -63,8 +73,9 @@ class ViewController: UIViewController {
     
     func refresh() {
         if let data = weatherModel.data {
-            if loadingView.superview != nil {
+            if weatherView.superview == nil {
                 loadingView.removeFromSuperview()
+                errorView.removeFromSuperview()
                 view.addSubview(weatherView)
                 setupConstraints(weatherView)
                 view.layoutIfNeeded()

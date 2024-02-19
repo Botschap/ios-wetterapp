@@ -29,6 +29,9 @@ class ErrorView: UIView {
         errorLabel.font = UIFont.boldSystemFont(ofSize: 18)
         errorLabel.textColor = UIColor.systemRed
         errorLabel.textAlignment = NSTextAlignment.center
+        errorLabel.numberOfLines = 0
+        errorLabel.lineBreakMode = NSLineBreakMode.byWordWrapping
+        errorLabel.preferredMaxLayoutWidth = 300
         addSubview(errorLabel)
         
         disableAutoresizingMaskConstraints()

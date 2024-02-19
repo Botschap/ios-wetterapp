@@ -14,7 +14,7 @@
 - [ ] Benachrichtigungen an den User, wenn es z.B. in 1h regnen sollte
 - [x] neue Wetterapi anbinden (OpenWeatherMap)[https://home.openweathermap.org/api_keys]
 - [ ] default Location beim start der Anwendung setzen (falls Location nicht erreicht werden kann)
-- [ ] errorhandling
+- [x] errorhandling
 
 ## UI
 

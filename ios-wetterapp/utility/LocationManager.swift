@@ -74,11 +74,14 @@ class LocationManager: NSObject, CLLocationManagerDelegate {
         case .denied, .restricted:
             // Location services denied or restricted, handle accordingly.
             NSLog("Location authorization status changed to denied or restricted")
+            errorCompletionHandler?()
         case .notDetermined:
             // Authorization status not determined yet.
             NSLog("Location authorization status not determined")
+            errorCompletionHandler?()
         @unknown default:
             NSLog("Error during authorization check")
+            errorCompletionHandler?()
             break
         }
     }
