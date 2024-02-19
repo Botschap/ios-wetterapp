@@ -16,13 +16,15 @@ class LocationManager: NSObject, CLLocationManagerDelegate {
     
     private (set) var last: CLLocation? {
         didSet {
-            completionHandler?(last)
+            locationCompletionHandler?(last)
         }
     }
     
     private static var SINGLETON: LocationManager?
     
-    private var completionHandler: ((CLLocation?) -> Void)?
+    private var locationCompletionHandler: ((CLLocation?) -> Void)?
+    
+    private var errorCompletionHandler: (() -> Void)?
     
     private override init() {
         super.init()
@@ -35,7 +37,11 @@ class LocationManager: NSObject, CLLocationManagerDelegate {
     }
     
     func waitForLocationChange (_ completion: @escaping (CLLocation?) -> Void){
-        self.completionHandler = completion
+        locationCompletionHandler = completion
+    }
+    
+    func waitForErrorOccured(_ completion: @escaping () -> Void) {
+        errorCompletionHandler = completion
     }
     
     static func getInstance() -> LocationManager {
@@ -53,6 +59,7 @@ class LocationManager: NSObject, CLLocationManagerDelegate {
     
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
         NSLog("Location update failed with error: \(error.localizedDescription)")
+        errorCompletionHandler?()
     }
     
     func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
@@ -78,3 +85,6 @@ class LocationManager: NSObject, CLLocationManagerDelegate {
     
 }
 
+enum LocationAuthorizationError: Error {
+    case runtimeException(String)
+}

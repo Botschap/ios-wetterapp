@@ -14,6 +14,7 @@ class ViewController: UIViewController {
     private var weather: OpenWeather = try! OpenWeather.getInstance()
     private let weatherModel: WeatherModel = WeatherModel()
     
+    let errorView: ErrorView = ErrorView()
     let weatherView: WeatherView = WeatherView()
     let loadingView: LoadingView = LoadingView()
     
@@ -23,7 +24,7 @@ class ViewController: UIViewController {
         waitForNewLocation()
         
         view.addSubview(loadingView)
-        setupConstraints(for: loadingView)
+        setupConstraints(loadingView)
         
         NSLog("setup complete")
         
@@ -41,6 +42,21 @@ class ViewController: UIViewController {
                 })
             }
         }
+        
+        DispatchQueue.global().async {
+            self.locationManager.waitForErrorOccured {
+                DispatchQueue.main.async {
+                    //show ErrorView
+                    for subview in self.view.subviews {
+                        subview.removeFromSuperview()
+                    }
+                    
+                    self.errorView.displayError("Kein Zugriff auf Standortdaten!")
+                    self.view.addSubview(self.errorView)
+                    self.setupConstraints(self.errorView)
+                }
+            }
+        }
     }
     
     
@@ -50,7 +66,7 @@ class ViewController: UIViewController {
             if loadingView.superview != nil {
                 loadingView.removeFromSuperview()
                 view.addSubview(weatherView)
-                setupConstraints(for: weatherView)
+                setupConstraints(weatherView)
                 view.layoutIfNeeded()
             }
             
@@ -59,7 +75,7 @@ class ViewController: UIViewController {
         
     }
     
-    func setupConstraints(for view: UIView) {
+    func setupConstraints(_ view: UIView) {
         view.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             view.leadingAnchor.constraint(equalTo: self.view.leadingAnchor),
