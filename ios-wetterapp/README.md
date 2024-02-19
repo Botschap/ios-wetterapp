@@ -13,7 +13,6 @@
 - [x] scheduel zum fetchen der Wetterdaten (unabhängig von der Location)
 - [ ] Benachrichtigungen an den User, wenn es z.B. in 1h regnen sollte
 - [x] neue Wetterapi anbinden (OpenWeatherMap)[https://home.openweathermap.org/api_keys]
-- [ ] default Location beim start der Anwendung setzen (falls Location nicht erreicht werden kann)
 - [x] errorhandling
 
 ## UI
