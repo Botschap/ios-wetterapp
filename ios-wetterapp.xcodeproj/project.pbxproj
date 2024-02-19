@@ -16,6 +16,7 @@
 		84279E932B4734CA004923E0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 84279E922B4734CA004923E0 /* Assets.xcassets */; };
 		84279E962B4734CA004923E0 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 84279E942B4734CA004923E0 /* LaunchScreen.storyboard */; };
 		843EB78C2B83978F00CB10AB /* ErrorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 843EB78B2B83978F00CB10AB /* ErrorView.swift */; };
+		843EB78E2B83B6CB00CB10AB /* Media.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 843EB78D2B83B6CB00CB10AB /* Media.xcassets */; };
 		843EDACC2B821BFC00C4415D /* DailyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 843EDACB2B821BFC00C4415D /* DailyView.swift */; };
 		843EDACE2B821C8100C4415D /* SmallDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 843EDACD2B821C8100C4415D /* SmallDetailView.swift */; };
 		843EDAD42B82456C00C4415D /* ForecastView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 843EDAD32B82456C00C4415D /* ForecastView.swift */; };
@@ -44,6 +45,7 @@
 		84279E952B4734CA004923E0 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		84279E972B4734CA004923E0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		843EB78B2B83978F00CB10AB /* ErrorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorView.swift; sourceTree = "<group>"; };
+		843EB78D2B83B6CB00CB10AB /* Media.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Media.xcassets; sourceTree = "<group>"; };
 		843EDACB2B821BFC00C4415D /* DailyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyView.swift; sourceTree = "<group>"; };
 		843EDACD2B821C8100C4415D /* SmallDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SmallDetailView.swift; sourceTree = "<group>"; };
 		843EDAD32B82456C00C4415D /* ForecastView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForecastView.swift; sourceTree = "<group>"; };
@@ -89,6 +91,7 @@
 		84279E882B4734C9004923E0 /* ios-wetterapp */ = {
 			isa = PBXGroup;
 			children = (
+				843EB78D2B83B6CB00CB10AB /* Media.xcassets */,
 				846666652B5003EC00F01BC2 /* weather */,
 				8466665C2B4FECA200F01BC2 /* utility */,
 				84279E892B4734C9004923E0 /* AppDelegate.swift */,
@@ -233,6 +236,7 @@
 			files = (
 				84279E962B4734CA004923E0 /* LaunchScreen.storyboard in Resources */,
 				84279E932B4734CA004923E0 /* Assets.xcassets in Resources */,
+				843EB78E2B83B6CB00CB10AB /* Media.xcassets in Resources */,
 				84279E912B4734C9004923E0 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -412,6 +416,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = NO;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
@@ -445,6 +450,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = NO;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
