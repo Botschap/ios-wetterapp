@@ -51,7 +51,9 @@
         <string>We need your location to get the correct weatherdata</string>
         <key>NSLocationAlwaysUsageDescription</key>
         <string>We need your location to get the correct weatherdata</string>
-        
+        <!-- macOS only -->
+        <key>NSLocationUsageDescription</key>
+        <string>We need your location to get the correct weatherdata</string>
         <key>UIRequiredDeviceCapabilities</key>
         <array>
             <string>location-services</string>
