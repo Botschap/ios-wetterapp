@@ -32,8 +32,7 @@ class LocationManager: NSObject, CLLocationManagerDelegate {
         locationManager.delegate = self
         locationManager.desiredAccuracy = kCLLocationAccuracyKilometer
         locationManager.distanceFilter = 1000
-        locationManager.allowsBackgroundLocationUpdates = false
-        locationManager.requestAlwaysAuthorization()
+        locationManager.allowsBackgroundLocationUpdates = true
     }
     
     func waitForLocationChange (_ completion: @escaping (CLLocation?) -> Void){
@@ -78,7 +77,7 @@ class LocationManager: NSObject, CLLocationManagerDelegate {
         case .notDetermined:
             // Authorization status not determined yet.
             NSLog("Location authorization status not determined")
-            errorCompletionHandler?()
+            locationManager.requestAlwaysAuthorization()
         @unknown default:
             NSLog("Error during authorization check")
             errorCompletionHandler?()
