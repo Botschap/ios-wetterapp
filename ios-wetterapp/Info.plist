@@ -46,13 +46,12 @@
             <string>location</string>
             <string>remote-notification</string>
         </array>
+        
         <key>NSLocationWhenInUseUsageDescription</key>
-        <dict>
-            <key>NSLocationWhenInUseUsageDescription</key>
-            <string>We need your location to get the correct weatherdata</string>
-            <key>NSLocationAlwaysUsageDescription</key>
-            <string>We need your location to get the correct weatherdata</string>
-        </dict>
+        <string>We need your location to get the correct weatherdata</string>
+        <key>NSLocationAlwaysUsageDescription</key>
+        <string>We need your location to get the correct weatherdata</string>
+        
         <key>UIRequiredDeviceCapabilities</key>
         <array>
             <string>location-services</string>
