@@ -64,11 +64,11 @@ class LocationManager: NSObject, CLLocationManagerDelegate {
     func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
         switch manager.authorizationStatus {
         case .authorizedWhenInUse:
-            locationManager.startUpdatingLocation()
+            startUpdatingLocation()
             NSLog("Location authorization status changed to authorized but not all features will be working correctly")
         case .authorizedAlways:
             // Location services authorized, you can start location updates here if needed.
-            locationManager.startUpdatingLocation()
+            startUpdatingLocation()
             NSLog("Location authorization status changed to authorized")
         case .denied, .restricted:
             // Location services denied or restricted, handle accordingly.
@@ -83,6 +83,13 @@ class LocationManager: NSObject, CLLocationManagerDelegate {
             errorCompletionHandler?()
             break
         }
+    }
+    
+    func startUpdatingLocation(){
+        if(CLLocationManager.locationServicesEnabled()){
+            locationManager.startUpdatingLocation()
+        }
+        
     }
     
 }
