@@ -46,5 +46,9 @@
 		<string>location</string>
 		<string>remote-notification</string>
 	</array>
+    <key>UIRequiredDeviceCapabilities</key>
+    <array>
+        <string>location-services</string>
+    </array>
 </dict>
 </plist>
