@@ -48,25 +48,25 @@ class ViewController: UIViewController {
             }
         }
         
-        DispatchQueue.global().async {
-            self.locationManager.waitForLocationChange{newLocation in
-                self.weather.fetchWeatherData(newLocation, { newData in
-                    self.weatherModel.data = newData
-                    NSLog("new weatherdata!")
-                    DispatchQueue.main.async {
-                        self.refresh()
-                    }
-                })
+        
+        self.locationManager.waitForErrorOccured {
+            DispatchQueue.main.async {
+                self.showErrorView("Kein Zugriff auf Standortdaten!")
             }
         }
         
-        DispatchQueue.global().async {
-            self.locationManager.waitForErrorOccured {
+        
+        //wait for new Location to fetch weatherdata
+        self.locationManager.waitForLocationChange{newLocation in
+            self.weather.fetchWeatherData(newLocation, { newData in
+                self.weatherModel.data = newData
+                NSLog("new weatherdata!")
                 DispatchQueue.main.async {
-                    self.showErrorView("Kein Zugriff auf Standortdaten!")
+                    self.refresh()
                 }
-            }
+            })
         }
+        
     }
     
     

@@ -103,7 +103,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func sendUserNotification(_ message: String){
         let content = UNMutableNotificationContent()
         content.title = "Warnung"
-        content.body = message
+        content.body = "In den nächsten 3 Stunden: \(message)"
         content.sound = UNNotificationSound.default
 
         // Create a trigger for the notification
