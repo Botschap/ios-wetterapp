@@ -86,10 +86,13 @@ class LocationManager: NSObject, CLLocationManagerDelegate {
     }
     
     func startUpdatingLocation(){
-        if(CLLocationManager.locationServicesEnabled()){
-            locationManager.startUpdatingLocation()
+        DispatchQueue.global().async {
+            if(CLLocationManager.locationServicesEnabled()){
+                self.locationManager.startUpdatingLocation()
+            } else {
+                self.errorCompletionHandler?()
+            }
         }
-        
     }
     
 }
