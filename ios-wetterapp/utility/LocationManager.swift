@@ -12,7 +12,8 @@ class LocationManager: NSObject, CLLocationManagerDelegate {
     
     private var locationManager = CLLocationManager()
     
-    var delegate: CLLocationManagerDelegate?
+    //leider in der Abgabe enthalten. Habe ich vergessen beim Cleanup zu löschen
+    //var delegate: CLLocationManagerDelegate?
     
     private (set) var last: CLLocation? {
         didSet {
